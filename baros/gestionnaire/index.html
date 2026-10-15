@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="application-name" content="BarOS Mgr">
+  <meta name="theme-color" content="#c8f55a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="BarOS Mgr">
+  <link rel="manifest" href="manifest-manager.json">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMCIgZmlsbD0iIzBhMGEwZiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjQzMiIgaGVpZ2h0PSI0MzIiIHJ4PSI4MCIgZmlsbD0iIzEyMTIxYSIvPgogIDx0ZXh0IHg9IjI1NiIgeT0iMzIwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2ssc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNjAiIGZvbnQtd2VpZ2h0PSI5MDAiIGZpbGw9IiNjOGY1NWEiPkI8L3RleHQ+CiAgPHJlY3QgeD0iMTAwIiB5PSIzODAiIHdpZHRoPSIzMTIiIGhlaWdodD0iMjIiIHJ4PSIxMSIgZmlsbD0iI2M4ZjU1YSIgb3BhY2l0eT0iMC40Ii8+CiAgPGNpcmNsZSBjeD0iMzkwIiBjeT0iMTMwIiByPSI1MCIgZmlsbD0iI2M4ZjU1YSIgb3BhY2l0eT0iMC4xNSIvPgogIDxjaXJjbGUgY3g9IjM5MCIgY3k9IjEzMCIgcj0iMjgiIGZpbGw9IiNjOGY1NWEiLz4KPC9zdmc+">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMCIgZmlsbD0iIzBhMGEwZiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjQzMiIgaGVpZ2h0PSI0MzIiIHJ4PSI4MCIgZmlsbD0iIzEyMTIxYSIvPgogIDx0ZXh0IHg9IjI1NiIgeT0iMzIwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2ssc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNjAiIGZvbnQtd2VpZ2h0PSI5MDAiIGZpbGw9IiNjOGY1NWEiPkI8L3RleHQ+CiAgPHJlY3QgeD0iMTAwIiB5PSIzODAiIHdpZHRoPSIzMTIiIGhlaWdodD0iMjIiIHJ4PSIxMSIgZmlsbD0iI2M4ZjU1YSIgb3BhY2l0eT0iMC40Ii8+CiAgPGNpcmNsZSBjeD0iMzkwIiBjeT0iMTMwIiByPSI1MCIgZmlsbD0iI2M4ZjU1YSIgb3BhY2l0eT0iMC4xNSIvPgogIDxjaXJjbGUgY3g9IjM5MCIgY3k9IjEzMCIgcj0iMjgiIGZpbGw9IiNjOGY1NWEiLz4KPC9zdmc+">
+  <link rel="shortcut icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMCIgZmlsbD0iIzBhMGEwZiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjQzMiIgaGVpZ2h0PSI0MzIiIHJ4PSI4MCIgZmlsbD0iIzEyMTIxYSIvPgogIDx0ZXh0IHg9IjI1NiIgeT0iMzIwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2ssc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNjAiIGZvbnQtd2VpZ2h0PSI5MDAiIGZpbGw9IiNjOGY1NWEiPkI8L3RleHQ+CiAgPHJlY3QgeD0iMTAwIiB5PSIzODAiIHdpZHRoPSIzMTIiIGhlaWdodD0iMjIiIHJ4PSIxMSIgZmlsbD0iI2M4ZjU1YSIgb3BhY2l0eT0iMC40Ii8+CiAgPGNpcmNsZSBjeD0iMzkwIiBjeT0iMTMwIiByPSI1MCIgZmlsbD0iI2M4ZjU1YSIgb3BhY2l0eT0iMC4xNSIvPgogIDxjaXJjbGUgY3g9IjM5MCIgY3k9IjEzMCIgcj0iMjgiIGZpbGw9IiNjOGY1NWEiLz4KPC9zdmc+">
+<title>BarOS v6 — Manager</title>
+<!-- BarOS Security Module — charger EN PREMIER -->
+<!-- BarOS Security Module — inline (BAROS SEC FIX : suppression dependance script src externe, cause de l'echec de chargement sur Android content:// et connexions instables) -->
+<script src="js/app-01.js"></script>
+<!-- ══════════════════════════════════════════════════════
+     BAROS OFFLINE AUTH FALLBACK v1.0
+     Activé uniquement si baros-security.js échoue à charger
+     (protocole file://, Android local, etc.)
+     NE MODIFIE PAS le comportement si BarOSSec est déjà chargé.
+     ══════════════════════════════════════════════════════ -->
+<script src="js/app-02.js"></script>
+<script src="js/lib-supabase.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script src="js/lib-qrcode.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/menu-toggle.css">
+<link rel="stylesheet" href="css/extras.css">
+</head>
+<body>
+
+<div class="off-banner" id="off-banner">📵 Hors-ligne — données en attente de synchronisation</div>
+
+<!-- AUTH -->
+<!-- SPLASH SCREEN -->
+<div class="splash" id="splash">
+  <div class="splash-logo">BarOS</div>
+  <div class="splash-tag">Système de gestion de bar intelligent</div>
+  <div class="splash-bar"><div class="splash-fill"></div></div>
+  <div style="font-size:11px;color:var(--mt)">Manager · v3.0</div>
+  <div class="splash-copy">
+    <strong>© 2025 Christophe OLOCK BELANG</strong><br>
+    Tous droits réservés · Propriété intellectuelle protégée<br>
+    Toute reproduction ou distribution non autorisée est interdite.
+  </div>
+</div>
+
+<!-- MODAL POLITIQUE & CONFIDENTIALITÉ -->
+<div class="pol-bg hide" id="pol-modal">
+  <div class="pol-box">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div>
+        <div class="pol-logo">BarOS</div>
+        <div class="pol-ver">Version 3.0 · Manager · © 2025</div>
+      </div>
+      <span style="cursor:pointer;font-size:18px;color:var(--mt)" onclick="document.getElementById('pol-modal').classList.add('hide')">✕</span>
+    </div>
+
+    <div class="pol-badge">🔐 Propriété intellectuelle protégée par la loi</div>
+
+    <div class="pol-h">👤 Propriétaire & Auteur</div>
+    <div class="pol-p"><strong style="color:var(--tx)">Christophe OLOCK BELANG</strong><br>
+    Concepteur et développeur exclusif de l'application BarOS.<br>
+    Ce logiciel est une œuvre originale protégée par le droit d'auteur (Copyright © 2025).<br>
+    Toute copie, reproduction, modification, distribution ou exploitation commerciale sans accord écrit préalable du propriétaire est strictement interdite.</div>
+
+    <div class="pol-h">📋 Conditions d'utilisation</div>
+    <div class="pol-p">L'accès à cette application est réservé aux titulaires d'un compte autorisé. L'utilisateur s'engage à :</div>
+    <div class="pol-p">• Ne pas partager ses identifiants de connexion avec des tiers.<br>
+    • Ne pas tenter de décompiler, rétro-concevoir ou copier tout ou partie du code source.<br>
+    • Ne pas utiliser l'application à des fins autres que la gestion de son propre établissement.<br>
+    • Signaler toute anomalie ou tentative d'intrusion au propriétaire.</div>
+
+    <div class="pol-h">🔒 Politique de confidentialité</div>
+    <div class="pol-p">Les données saisies dans BarOS (clients, ventes, stocks, personnel) sont :</div>
+    <div class="pol-p">• Stockées de façon sécurisée sur Supabase (infrastructure chiffrée).<br>
+    • Propres à chaque établissement — aucune donnée n'est partagée entre comptes.<br>
+    • Non revendues, non transmises à des tiers commerciaux.<br>
+    • Accessibles uniquement par l'utilisateur authentifié et le propriétaire du système.</div>
+
+    <div class="pol-h">📦 Données collectées</div>
+    <div class="pol-p">• Informations d'établissement (nom, ville, type)<br>
+    • Données de ventes et de stock (usage opérationnel uniquement)<br>
+    • Profils clients fidélité (avec consentement de l'utilisateur)<br>
+    • Profils employés (usage interne à l'établissement)</div>
+
+    <div class="pol-h">⚖️ Droit applicable</div>
+    <div class="pol-p">Ce logiciel est régi par les lois camerounaises et les conventions internationales sur la propriété intellectuelle (Convention de Berne, OAPI). Tout litige sera soumis à la juridiction compétente de Douala, Cameroun.</div>
+
+    <div style="margin-top:20px;padding:12px;background:var(--s2);border-radius:var(--rs);text-align:center">
+      <div style="font-size:10px;color:var(--ht)">© 2025 Christophe OLOCK BELANG · Tous droits réservés</div>
+      <div style="font-size:10px;color:var(--ht);margin-top:2px">BarOS v3.0 · Made in Cameroun 🇨🇲</div>
+    </div>
+    <button class="btn btn-ac btn-full" style="margin-top:12px" onclick="document.getElementById('pol-modal').classList.add('hide')">✓ J'ai lu et j'accepte</button>
+  </div>
+</div>
+
+<div class="auth-wrap" id="auth-wrap">
+  <div class="auth-box">
+    <div class="auth-logo">BarOS</div>
+    <div class="auth-tagline">Système anti-perte + moteur de croissance</div>
+    <div class="auth-tabs">
+      <div class="auth-tab on" onclick="switchTab('login')">Connexion</div>
+      <div class="auth-tab" onclick="switchTab('register')">Créer un compte</div>
+    </div>
+    <div id="tab-login">
+      <div class="frow"><div class="flbl">Email</div><input class="finp" id="l-email" type="email" placeholder="manager@monbar.com" onkeydown="if(event.key==='Enter')doLogin()"></div>
+      <div class="frow"><div class="flbl">Mot de passe</div><input class="finp" id="l-pwd" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
+      <button class="btn btn-ac btn-full" id="l-btn" onclick="doLogin()">Se connecter</button>
+      <div class="auth-err" id="l-err"></div>
+      <div class="auth-demo">Tester sans compte → <span onclick="demoLogin()">Connexion démo</span></div>
+    </div>
+    <div id="tab-register" class="hide">
+      <div class="frow"><div class="flbl">Nom de l'établissement</div><input class="finp" id="r-etab" placeholder="Le Complexe Étoile"></div>
+      <div class="frow"><div class="flbl">Votre nom complet</div><input class="finp" id="r-nom" placeholder="Kevin Djoum"></div>
+      <div class="frow"><div class="flbl">Email</div><input class="finp" id="r-email" type="email" placeholder="manager@monbar.com"></div>
+      <div class="frow"><div class="flbl">Mot de passe (min. 6 caractères)</div><input class="finp" id="r-pwd" type="password" placeholder="••••••••"></div>
+      <div class="frow"><div class="flbl">Type d'établissement</div>
+        <select class="finp" id="r-type"><option>Bar</option><option>Boîte de nuit</option><option>Snack-bar</option><option>Restaurant avec bar</option></select>
+      </div>
+      <button class="btn btn-ac btn-full" id="r-btn" onclick="doRegister()">Créer mon compte</button>
+      <div class="auth-err" id="r-err"></div>
+    </div>
+  </div>
+  <div style="font-size:11px;color:var(--mt);text-align:center">🔒 Données stockées sur Supabase · Sécurisé</div>
+  <div style="font-size:10px;color:var(--ht);text-align:center;margin-top:6px">
+    © 2025 <strong style="color:var(--mt)">Christophe OLOCK BELANG</strong> · Tous droits réservés<br>
+    <span style="color:var(--ac);cursor:pointer" onclick="document.getElementById('pol-modal').classList.remove('hide')">Politique de confidentialité & CGU</span>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="shell hide" id="shell">
+<div class="sb-overlay" id="sb-overlay" onclick="closeMenu()"></div>
+<aside class="sb" id="sb">
+  <div class="logo"><div class="logo-n">BarOS</div><div class="logo-s" id="sb-etab" onclick="go('config',null)">—</div></div>
+  <nav class="sb-nav">
+    <div class="ns">Opérations</div>
+    <div class="ni on" onclick="go('dash',this)"><span>⊞</span> Tableau de bord</div>
+    <div class="ni" onclick="go('caisse',this)"><span>🧾</span> Caisse <span class="nb" id="b-cmd" style="background:var(--dg);color:#fff">0</span></div>
+    <div class="ni" onclick="go('stock',this)"><span>📦</span> Stock <span class="nb" id="b-stk" style="background:var(--wn);color:#0a0a0f">0</span></div>
+    <div class="ni" onclick="go('tables',this)"><span>🪑</span> Tables & QR <span class="nb" id="b-appels" style="background:var(--dg);color:#fff"></span></div>
+    <div class="ni" onclick="openPayModal()"><span>💳</span> Paiements mobiles <span class="nb" id="b-pay" style="background:var(--wn);color:#0a0a0f;display:none">0</span></div>
+    <div class="ni" onclick="openMultiEtab()"><span>🏢</span> Mes établissements</div>
+    <div class="ns">Personnel</div>
+    <div class="ni" onclick="go('bars',this)"><span>🍺</span> Bars & Compartiments</div>
+    <div class="ni" onclick="go('personnel',this)"><span>👥</span> Personnel <span class="nb" id="b-emp" style="background:var(--ac2);color:#fff">0</span></div>
+    <div class="ns">Anti-Perte</div>
+    <div class="ni" onclick="go('serveurs',this)"><span>📊</span> Performances</div>
+    <div class="ni" onclick="go('alertes',this)"><span>🚨</span> Alertes <span class="nb" id="b-al" style="background:var(--dg);color:#fff">0</span></div>
+    <div class="ns">Croissance</div>
+    <div class="ni" onclick="go('clients',this)"><span>⭐</span> Clients & fidélité</div>
+    <div class="ni" onclick="go('marketing',this)"><span>📣</span> Marketing</div>
+    <div class="ni" onclick="go('rapports',this)"><span>📈</span> Rapports</div>
+    <div class="ns">Paramètres</div>
+    <div class="ni" onclick="go('config',this)"><span>⚙️</span> Paramètres</div>
+    <div class="ni hide" id="nav-admin" onclick="go('admin',this)"><span>🔐</span> Administration</div>
+  </nav>
+  <div class="sb-bot">
+    <div style="padding:5px 8px;margin-bottom:2px">
+  <div onclick="document.getElementById('pol-modal').classList.remove('hide')" style="font-size:10px;color:var(--ht);cursor:pointer;padding:4px 6px;border-radius:6px;display:flex;align-items:center;gap:5px" onmouseover="this.style.color='var(--mt)'" onmouseout="this.style.color='var(--ht)'">
+    🔐 © Christophe OLOCK BELANG et LONTSI TIDOH IVAN ARTHUR
+  </div>
+</div>
+<div class="sync-row"><div class="sync-dot" id="sync-dot" style="background:var(--wn)"></div><span id="sync-lbl">Connexion...</span></div>
+    <div class="av-row">
+      <div class="av" id="av-el" style="background:#7c6cff33;color:var(--ac2)">?</div>
+      <div><div style="font-size:12px;font-weight:500" id="av-name">—</div><div style="font-size:10px;color:var(--mt)" id="av-role">Manager</div></div>
+      <div style="margin-left:auto;font-size:12px;color:var(--mt);cursor:pointer" onclick="doLogout()" title="Déconnexion">⏏</div>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+<div class="topbar">
+  <button class="btn btn-sm menu-btn" id="menu-btn" onclick="toggleMenu()" aria-label="Ouvrir le menu">☰ Menu</button>
+  <div class="tb-l"><h1 id="pg-title">Tableau de bord</h1><p id="live-time"></p></div>
+  <div class="tb-r">
+    <button class="btn btn-sm" onclick="sendRapportWA()">📲 WA</button>
+    <button class="btn btn-ac" onclick="openM('m-cmd')">+ Commande</button>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="page on" id="pg-dash">
+  <div class="live-bar">
+    <div class="ld"></div>
+    <div><div class="lv-l" id="lv-ca-lbl">📅 Aujourd'hui</div><div class="lv-v" id="lv-ca">0 F</div></div>
+    <div class="lv-s"></div>
+    <div><div class="lv-l">Commandes actives</div><div class="lv-v" id="lv-act">0</div></div>
+    <div class="lv-s"></div>
+    <div><div class="lv-l">Clients enregistrés</div><div class="lv-v" id="lv-cli">0</div></div>
+    <div class="lv-s"></div>
+    <div><div class="lv-l">Personnel actif</div><div class="lv-v" id="lv-emp">0</div></div>
+    <div class="achip" id="live-chip" style="background:rgba(74,222,128,.1);color:var(--gn);border-color:rgba(74,222,128,.25)" onclick="go('alertes',null)">✓ Tout OK</div>
+  </div>
+
+  <!-- Sélecteur de période -->
+  <div class="period-tabs">
+    <button class="pt-btn tout active" id="pt-tout" onclick="setPeriode('tout')">📅 Aujourd'hui</button>
+    <button class="pt-btn jour" id="pt-jour" onclick="setPeriode('jour')">🌤 Journée<br><small style="font-weight:400;font-size:9px">06h00 → 18h00</small></button>
+    <button class="pt-btn nuit" id="pt-nuit" onclick="setPeriode('nuit')">🌙 Soir / Nuit<br><small style="font-weight:400;font-size:9px">18h00 → 06h00</small></button>
+  </div>
+
+  <!-- Récapitulatif des 3 périodes toujours visible -->
+  <div class="periode-recap">
+    <div class="pr-col tout">
+      <div class="pr-lbl">📅 Aujourd'hui</div>
+      <div class="pr-ca" id="pr-ca-tout">0 F</div>
+      <div class="pr-sub" id="pr-sub-tout">0 commandes</div>
+    </div>
+    <div class="pr-col jour">
+      <div class="pr-lbl">🌤 Journée</div>
+      <div class="pr-ca" id="pr-ca-jour">0 F</div>
+      <div class="pr-sub" id="pr-sub-jour">0 commandes · moy. 0 F</div>
+    </div>
+    <div class="pr-col nuit">
+      <div class="pr-lbl">🌙 Soir / Nuit</div>
+      <div class="pr-ca" id="pr-ca-nuit">0 F</div>
+      <div class="pr-sub" id="pr-sub-nuit">0 commandes · moy. 0 F</div>
+    </div>
+  </div>
+
+  <div class="kg g4">
+    <div class="kpi hi"><div class="kpi-l">💵 Chiffre d'affaires</div><div class="kpi-v"><span id="kca">0</span> <small>F</small></div><div class="dt nt" id="kca-lbl">aujourd'hui</div></div>
+    <div class="kpi"><div class="kpi-l">🧾 Commandes livrées</div><div class="kpi-v" id="kcmd">0</div><div class="dt nt" id="kcmd-lbl">aujourd'hui</div></div>
+    <div class="kpi red"><div class="kpi-l">🚨 Alertes actives</div><div class="kpi-v" id="kal" style="color:var(--dg)">0</div><div class="dt dn">à traiter</div></div>
+    <div class="kpi"><div class="kpi-l">👥 Clients VIP</div><div class="kpi-v" id="kvip">0</div><div class="dt up">500+ pts</div></div>
+  </div>
+  <div class="row r32">
+    <div class="card"><div class="ch"><span class="ct">CA 7 jours</span></div><div class="bars" id="db-chart" style="height:75px"></div></div>
+    <div class="card"><div class="ch"><span class="ct">🏆 Top serveurs</span><span class="ca" onclick="go('serveurs',null)">Détail →</span></div><div id="db-top"></div></div>
+  </div>
+  <div class="row" style="grid-template-columns:1fr 1fr 1fr">
+    <div class="card"><div class="ch"><span class="ct">Alertes récentes</span><span class="ca" onclick="go('alertes',null)">Tout →</span></div><div id="db-alerts"></div></div>
+    <div class="card"><div class="ch"><span class="ct">Commandes en cours</span></div><div id="db-orders"></div></div>
+    <div class="card"><div class="ch"><span class="ct">Stock critique</span><span class="ca" onclick="go('stock',null)">Gérer →</span></div><div id="db-stock"></div></div>
+  </div>
+</div>
+
+<!-- CAISSE -->
+<div class="page" id="pg-caisse">
+  <div class="row r23">
+    <div class="card">
+      <div class="ch"><span class="ct">Résumé caisse</span><button class="btn btn-sm" onclick="cloturerCaisse()">Clôturer</button></div>
+      <div id="caisse-res"></div>
+      <div style="margin-top:11px;padding:10px;border-radius:var(--rs)" id="ecart-box">
+        <div style="font-size:10px;color:var(--mt)">Écart caisse</div>
+        <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800" id="ecart-v">0 F</div>
+        <div style="font-size:11px;margin-top:3px" id="ecart-msg"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ct">Commande rapide</span>
+        <select class="finp" style="width:auto;padding:3px 7px;font-size:11px" id="sel-tbl"></select>
+      </div>
+      <input class="finp" id="qcmd-search" placeholder="🔍 Rechercher un article…" oninput="qcmdSearch(this.value)" style="margin-bottom:8px">
+      <div class="pgrid" id="pgrid"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:9px;padding-top:9px;border-top:1px solid var(--bd)">
+        <div style="font-size:12px;color:var(--mt)">Total: <strong id="cmd-tot" style="color:var(--tx)">0 F</strong></div>
+        <div style="display:flex;gap:5px">
+          <select class="finp" style="width:auto;padding:3px 7px;font-size:11px" id="sel-pay"><option>Cash</option><option>MTN MoMo</option><option>Orange Money</option><option>Carte</option></select>
+          <button class="btn btn-ac btn-sm" onclick="valCmd()">✓ Valider</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ch"><span class="ct">Journal des commandes</span>
+      <div style="display:flex;gap:5px">
+        <select class="finp" style="width:auto;padding:3px 7px;font-size:11px" id="f-st" onchange="loadCommandes()"><option value="">Tous</option><option>Nouveau</option><option>En prépa</option><option>Livré</option><option>Annulé</option></select>
+        <button class="btn btn-sm btn-ac" onclick="openM('m-cmd')">+ Ajouter</button>
+      </div>
+    </div>
+    <div class="tw"><table><thead><tr><th>#</th><th>Table</th><th>Articles</th><th>Serveur</th><th>Montant</th><th>Paiement</th><th>Heure</th><th>Statut</th><th></th></tr></thead><tbody id="ord-tb"></tbody></table></div>
+  </div>
+</div>
+
+<!-- STOCK -->
+<div class="page" id="pg-stock">
+  <div class="kg g4">
+    <div class="kpi"><div class="kpi-l">📦 Références</div><div class="kpi-v" id="s-tot">0</div><div class="dt nt">articles gérés</div></div>
+    <div class="kpi"><div class="kpi-l">💰 Coût stock initial</div><div class="kpi-v" id="s-cout" style="font-size:15px">0 F</div><div class="dt nt">valeur d'achat totale</div></div>
+    <div class="kpi"><div class="kpi-l">📈 CA ventes système</div><div class="kpi-v" id="s-ca" style="font-size:15px;color:var(--gn)">0 F</div><div class="dt nt">par les commandes</div></div>
+    <div class="kpi red"><div class="kpi-l">⚠️ Alertes</div><div class="kpi-v" id="s-lo" style="color:var(--wn)">0</div><div class="dt wn">stocks bas ou vides</div></div>
+  </div>
+  <div class="card">
+    <div class="ch"><span class="ct">Inventaire détaillé</span>
+      <div style="display:flex;gap:5px;align-items:center">
+        <select class="finp" style="width:auto;padding:3px 7px;font-size:11px" id="f-cat" onchange="renderStockTable()">
+          <option value="">Toutes catégories</option>
+          <option>Boissons gazeuses</option><option>Bières</option><option>Vins</option><option>Whiskys</option>
+          <option>Liqueurs</option><option>Cocktails</option><option>Jus</option><option>Eau</option>
+          <option>Café</option><option>Thé</option><option>Petit-déjeuner</option><option>Entrées</option>
+          <option>Plats</option><option>Grillades</option><option>Poissons</option><option>Accompagnements</option>
+          <option>Desserts</option><option>Glaces</option><option>Chichas</option><option>Divers</option>
+        </select>
+        <button class="btn btn-sm btn-ac" onclick="openNewStk()">+ Article</button>
+      </div>
+    </div>
+    <input class="finp" id="stk-search" placeholder="🔍 Rechercher un article, une catégorie, un mot-clé…" oninput="renderStockTable()" style="margin-bottom:10px">
+    <div class="tw">
+      <table>
+        <thead><tr>
+          <th>Article</th>
+          <th>Catégorie</th>
+          <th title="Quantité saisie manuellement à l'entrée">Entrée initiale</th>
+          <th title="Quantité réelle restante en temps réel">Restant</th>
+          <th title="Coût d'achat unitaire × quantité initiale">Coût stock</th>
+          <th title="Quantité vendue × prix de vente">Ventes (sys.)</th>
+          <th title="Sorties non enregistrées dans le système">Écart</th>
+          <th>Niveau</th>
+          <th></th>
+        </tr></thead>
+        <tbody id="stk-tb"></tbody>
+        <tfoot><tr id="stk-foot" style="display:none">
+          <td colspan="2" style="font-weight:700;color:var(--mt)">TOTAUX</td>
+          <td id="sf-init" style="font-weight:600"></td>
+          <td id="sf-rest" style="font-weight:600"></td>
+          <td id="sf-cout" style="font-weight:700;color:var(--ac)"></td>
+          <td id="sf-ca"   style="font-weight:700;color:var(--gn)"></td>
+          <td id="sf-ec"   style="font-weight:700;color:var(--dg)"></td>
+          <td colspan="2"></td>
+        </tr></tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- PERSONNEL -->
+<div class="page" id="pg-personnel">
+  <div class="kg g4">
+    <div class="kpi hi"><div class="kpi-l">👥 Effectif total</div><div class="kpi-v" id="p-total">0</div><div class="dt nt">employés</div></div>
+    <div class="kpi"><div class="kpi-l">✅ Actifs</div><div class="kpi-v" id="p-actif" style="color:var(--gn)">0</div><div class="dt up">ce soir</div></div>
+    <div class="kpi"><div class="kpi-l">💍 Mariés</div><div class="kpi-v" id="p-maries">0</div><div class="dt nt">employés</div></div>
+    <div class="kpi"><div class="kpi-l">👶 Enfants à charge</div><div class="kpi-v" id="p-enfants">0</div><div class="dt nt">total</div></div>
+  </div>
+  <div class="card">
+    <div class="ch">
+      <span class="ct">Gestion du personnel</span>
+      <div style="display:flex;gap:5px;flex-wrap:wrap">
+        <select class="finp" style="width:auto;padding:3px 7px;font-size:11px" id="f-role" onchange="loadPersonnel()">
+          <option value="">Tous les rôles</option>
+          <option>Serveur/Serveuse</option><option>Barman</option><option>Caissier(e)</option><option>Sécurité</option><option>Manager</option><option>Cuisinier(e)</option><option>Chef d'équipe</option><option>Technicien de surface</option>
+        </select>
+        <select class="finp" style="width:auto;padding:3px 7px;font-size:11px" id="f-statut-emp" onchange="loadPersonnel()">
+          <option value="">Tous</option><option value="true">Actifs</option><option value="false">Inactifs</option>
+        </select>
+        <button class="btn btn-sm btn-ac" onclick="openM('m-emp')">+ Ajouter employé</button>
+      </div>
+    </div>
+    <div id="personnel-list"></div>
+  </div>
+  <!-- ═══════════════════════════════════════════════════════════════
+       BAROS MGR COMM — Card instructions manager (ajout strictement additif)
+  ═══════════════════════════════════════════════════════════════ -->
+  <div class="card" id="mgr-comm-card" style="margin-top:12px">
+    <div class="ch" style="cursor:pointer" onclick="document.getElementById('mgr-comm-body').classList.toggle('hide')">
+      <span class="ct">📢 Instructions au personnel</span>
+      <span style="font-size:11px;color:var(--mt);user-select:none">▾ Déplier</span>
+    </div>
+    <div id="mgr-comm-body" class="hide" style="padding:0 0 10px">
+      <div class="frow" style="margin-bottom:7px">
+        <div class="flbl">Titre *</div>
+        <input class="finp" id="mgr-comm-titre" placeholder="Ex: Briefing 21h, Changement de poste…" maxlength="90">
+      </div>
+      <div class="frow" style="margin-bottom:7px">
+        <div class="flbl">Détails (optionnel)</div>
+        <textarea class="finp" id="mgr-comm-corps" placeholder="Précisions supplémentaires…" rows="2" style="resize:vertical;font-family:inherit;line-height:1.5"></textarea>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+        <div class="frow">
+          <div class="flbl">Destinataires</div>
+          <select class="finp" id="mgr-comm-scope" onchange="_mgrCommScopeChange()">
+            <option value="ALL">Tout le personnel</option>
+            <option value="ROLE">Par rôle</option>
+          </select>
+        </div>
+        <div class="frow" id="mgr-comm-role-wrap" style="display:none">
+          <div class="flbl">Rôle ciblé</div>
+          <select class="finp" id="mgr-comm-role">
+            <option>Serveur/Serveuse</option><option>Barman</option><option>Caissier(e)</option><option>Sécurité</option><option>Cuisinier(e)</option><option>Chef d'équipe</option><option>Technicien de surface</option>
+          </select>
+        </div>
+        <div class="frow">
+          <div class="flbl">Type</div>
+          <select class="finp" id="mgr-comm-type">
+            <option value="GLOBAL_INSTRUCTION">📢 Instruction générale</option>
+            <option value="URGENT_MEETING">🚨 Réunion urgente</option>
+            <option value="COMMUNICATION">💬 Message simple</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-ac" onclick="_mgrSendInstruction()" style="width:100%;justify-content:center;font-size:13px">📤 Envoyer au personnel</button>
+    </div>
+  </div>
+</div>
+
+<!-- SERVEURS / PERFS -->
+<div class="page" id="pg-serveurs">
+  <div class="card" style="margin-bottom:13px">
+    <div class="ch"><span class="ct">🏆 Classement ce soir</span></div>
+    <div id="srv-rank"></div>
+  </div>
+  <div id="srv-cards"></div>
+</div>
+
+<!-- ALERTES -->
+<div class="page" id="pg-alertes">
+  <div class="kg g3">
+    <div class="kpi red"><div class="kpi-l">🚨 Critiques</div><div class="kpi-v" id="al-cr" style="color:var(--dg)">0</div><div class="dt dn">action requise</div></div>
+    <div class="kpi"><div class="kpi-l">⚠️ Avertissements</div><div class="kpi-v" id="al-wn" style="color:var(--wn)">0</div><div class="dt wn">à surveiller</div></div>
+    <div class="kpi"><div class="kpi-l">✓ Résolues</div><div class="kpi-v" id="al-ok">0</div><div class="dt up">ce soir</div></div>
+  </div>
+  <div class="card"><div class="ch"><span class="ct">Journal IA anti-fraude</span></div><div id="al-list"></div></div>
+</div>
+
+<!-- CLIENTS -->
+<div class="page" id="pg-clients">
+  <div class="kg g4" style="margin-bottom:10px">
+    <div class="kpi"><div class="kpi-l">👥 Total clients</div><div class="kpi-v" id="c-tot">0</div><div class="dt nt">enregistrés</div></div>
+    <div class="kpi hi"><div class="kpi-l">💎 Platine (1000+ pts)</div><div class="kpi-v" id="c-diamond" style="color:#a78bfa">0</div><div class="dt up" style="background:rgba(167,139,250,.1);color:#a78bfa">-20% + priorité</div></div>
+    <div class="kpi hi"><div class="kpi-l">🥇 Or (500+ pts)</div><div class="kpi-v" id="c-vip" style="color:var(--wn)">0</div><div class="dt wn">-10% + accès VIP</div></div>
+    <div class="kpi"><div class="kpi-l">😴 Inactifs</div><div class="kpi-v" id="c-in" style="color:var(--mt)">0</div><div class="dt nt">+14 jours</div></div>
+  </div>
+  <!-- Légende des tiers -->
+  <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--mt)"><span style="width:10px;height:10px;border-radius:50%;background:#a78bfa;display:inline-block"></span> Platine 1000+ pts — Remise 20%, table réservée, boisson offerte</div>
+    <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--mt)"><span style="width:10px;height:10px;border-radius:50%;background:var(--wn);display:inline-block"></span> Or 500+ pts — Remise 10%, accès zone VIP</div>
+    <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--mt)"><span style="width:10px;height:10px;border-radius:50%;background:var(--inf);display:inline-block"></span> Argent 200+ pts — Remise 5%</div>
+  </div>
+  <div class="card">
+    <div class="ch">
+      <span class="ct">Base clients</span>
+      <div style="display:flex;gap:6px">
+        <input class="finp" id="cli-search" placeholder="🔍 Rechercher..." style="padding:4px 10px;font-size:12px;width:160px;margin:0" oninput="filterClients()">
+        <button class="btn btn-sm btn-ac" onclick="openM('m-cli')">+ Client</button>
+      </div>
+    </div>
+    <div class="tw"><table><thead><tr><th>Client</th><th>Tier</th><th>Tél</th><th>Visites</th><th>Points</th><th>Avantages actifs</th><th>Dernier passage</th><th></th></tr></thead><tbody id="cli-tb"></tbody></table></div>
+  </div>
+</div>
+
+<!-- MODAL PROFIL CLIENT VIP -->
+<div class="modal-bg" id="m-cli-profil"><div class="modal" style="width:480px;max-height:85vh;overflow-y:auto">
+  <div class="mh"><span class="mt2" id="profil-title">Profil client</span><span class="mx" onclick="closeM('m-cli-profil')">✕</span></div>
+  <div id="profil-body"></div>
+</div></div>
+
+<!-- MARKETING -->
+<div class="page" id="pg-marketing">
+
+  <!-- Onglets -->
+  <div style="display:flex;gap:5px;margin-bottom:14px;background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:4px;width:fit-content">
+    <button class="btn btn-sm mkt-tab on" id="mkt-tab-sms" onclick="switchMktTab('sms')" style="gap:5px">📱 SMS groupé</button>
+    <button class="btn btn-sm mkt-tab"    id="mkt-tab-evt" onclick="switchMktTab('evt')" style="gap:5px">🎉 Événements</button>
+  </div>
+
+  <!-- ===== PANNEAU SMS NOTCHPAY ===== -->
+  <div id="mkt-pnl-sms">
+    <div class="row g2" style="margin-bottom:13px">
+
+      <!-- Compositeur -->
+      <div class="card">
+        <div class="ch">
+          <span class="ct">📱 Campagne SMS — Notchpay</span>
+          <button class="btn btn-sm" onclick="openM('m-sms-guide')" style="gap:5px;border-color:rgba(90,180,255,.35);color:var(--inf)">❓ Guide de configuration</button>
+        </div>
+
+        <!-- Statut clé API -->
+        <div id="sms-api-status" style="margin-bottom:12px"></div>
+
+        <div class="frow"><div class="flbl">Segment cible</div>
+          <select class="finp" id="sms-tgt" onchange="updSms()">
+            <option value="all">Tous les clients</option>
+            <option value="inactive">Inactifs +14 jours</option>
+            <option value="silver">Argent (200+ pts)</option>
+            <option value="gold">Or (500+ pts)</option>
+            <option value="diamond">Platine (1000+ pts)</option>
+          </select>
+        </div>
+
+        <div class="frow"><div class="flbl">Message <span style="color:var(--mt)">(160 car. max)</span></div>
+          <textarea class="finp" id="sms-msg" rows="3" oninput="updSms()" placeholder="Votre message SMS..."></textarea>
+        </div>
+
+        <!-- Variables rapides -->
+        <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">
+          <span style="font-size:10px;color:var(--mt);align-self:center">Insérer :</span>
+          <button class="btn btn-sm" onclick="insertSmsVar('{prenom}')">👤 Prénom</button>
+          <button class="btn btn-sm" onclick="insertSmsVar('{etablissement}')">🏠 Bar</button>
+          <button class="btn btn-sm" onclick="insertSmsVar('{points}')">⭐ Points</button>
+        </div>
+
+        <!-- Stats -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+          <div style="background:var(--s2);border-radius:var(--rs);padding:6px 12px;font-size:11px">
+            <span style="color:var(--mt)">Caractères : </span><strong id="sms-cnt" style="color:var(--ac)">0</strong>/160
+          </div>
+          <div style="background:var(--s2);border-radius:var(--rs);padding:6px 12px;font-size:11px">
+            <span style="color:var(--mt)">Destinataires : </span><strong id="sms-nb" style="color:var(--ac)">0</strong>
+          </div>
+          <div style="background:var(--s2);border-radius:var(--rs);padding:6px 12px;font-size:11px">
+            <span style="color:var(--mt)">Coût estimé : </span><strong id="sms-cost" style="color:var(--wn)">0</strong> FCFA
+          </div>
+        </div>
+
+        <!-- Aperçu -->
+        <div style="background:var(--s2);border-radius:var(--rs);padding:10px;font-size:12px;color:var(--tx);border-left:3px solid var(--inf);margin-bottom:10px;min-height:40px;white-space:pre-wrap" id="sms-prv">Votre message...</div>
+
+        <button class="btn btn-ac btn-full" style="margin-top:4px;font-size:13px;font-weight:700;justify-content:center" onclick="sendSmsNotchpay()" id="sms-send-btn">
+          📱 Envoyer via Notchpay
+        </button>
+      </div>
+
+      <!-- Historique -->
+      <div class="card"><div class="ch"><span class="ct">📋 Historique campagnes</span></div><div id="camp-h-sms"></div></div>
+    </div>
+  </div>
+
+  <!-- ===== PANNEAU ÉVÉNEMENTS ===== -->
+  <div id="mkt-pnl-evt" style="display:none">
+    <div class="card"><div class="ch"><span class="ct">🎉 Événements</span><button class="btn btn-sm btn-ac" onclick="openM('m-evt')">+ Créer</button></div><div id="evts"></div></div>
+  </div>
+
+</div>
+
+<!-- ===== MODAL GUIDE SMS NOTCHPAY ===== -->
+<div class="modal-bg" id="m-sms-guide">
+  <div class="modal" style="width:500px;max-height:90vh;overflow-y:auto">
+    <div class="mh">
+      <span class="mt2">❓ Guide — Envoi SMS groupé via Notchpay</span>
+      <span class="mx" onclick="closeM('m-sms-guide')">✕</span>
+    </div>
+
+    <!-- Intro -->
+    <div style="background:rgba(200,245,90,.06);border:1px solid rgba(200,245,90,.18);border-radius:var(--rs);padding:12px 14px;margin-bottom:18px;font-size:12px;color:var(--mt);line-height:1.8">
+      <strong style="color:var(--ac)">Notchpay</strong> est une plateforme camerounaise d'envoi de SMS compatible <strong>MTN Mobile Money</strong> et <strong>Orange Money</strong>. Les SMS sont facturés en FCFA directement depuis votre solde Notchpay.
+    </div>
+
+    <!-- Étape 1 -->
+    <div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start">
+      <div style="width:28px;height:28px;border-radius:50%;background:var(--ac);color:#0a0a0f;font-family:Syne,sans-serif;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+      <div>
+        <div style="font-weight:600;font-size:13px;margin-bottom:4px">Créer un compte Notchpay</div>
+        <div style="font-size:12px;color:var(--mt);line-height:1.7">
+          Rendez-vous sur <strong style="color:var(--ac)">notchpay.co</strong> → cliquez <em>S'inscrire</em>.<br>
+          Renseignez votre email, votre nom et le nom de votre entreprise (ex: <em>Bar Chez Moi</em>).<br>
+          Confirmez votre email via le lien reçu dans votre boîte mail.
+        </div>
+      </div>
+    </div>
+
+    <!-- Étape 2 -->
+    <div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start">
+      <div style="width:28px;height:28px;border-radius:50%;background:var(--ac);color:#0a0a0f;font-family:Syne,sans-serif;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
+      <div>
+        <div style="font-weight:600;font-size:13px;margin-bottom:4px">Recharger votre solde</div>
+        <div style="font-size:12px;color:var(--mt);line-height:1.7">
+          Dans votre tableau de bord Notchpay → <strong>Portefeuille → Recharger</strong>.<br>
+          Choisissez <strong>MTN MoMo</strong> ou <strong>Orange Money</strong> et entrez le montant en FCFA.<br>
+          <span style="background:rgba(255,180,68,.1);color:var(--wn);border-radius:4px;padding:2px 7px;display:inline-block;margin-top:3px">💡 Tarif estimé : ~5 FCFA par SMS local (Cameroun)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Étape 3 -->
+    <div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start">
+      <div style="width:28px;height:28px;border-radius:50%;background:var(--ac);color:#0a0a0f;font-family:Syne,sans-serif;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
+      <div>
+        <div style="font-weight:600;font-size:13px;margin-bottom:4px">Récupérer votre clé API</div>
+        <div style="font-size:12px;color:var(--mt);line-height:1.7">
+          Dans Notchpay → <strong>Paramètres → Clés API</strong>.<br>
+          Copiez la clé qui commence par <code style="background:var(--s2);padding:1px 5px;border-radius:3px;color:var(--ac)">sk_live_...</code><br>
+          ⚠️ Ne partagez jamais cette clé — elle donne accès à votre compte.
+        </div>
+      </div>
+    </div>
+
+    <!-- Étape 4 -->
+    <div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start">
+      <div style="width:28px;height:28px;border-radius:50%;background:var(--ac);color:#0a0a0f;font-family:Syne,sans-serif;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0">4</div>
+      <div>
+        <div style="font-weight:600;font-size:13px;margin-bottom:4px">Configurer BarOS</div>
+        <div style="font-size:12px;color:var(--mt);line-height:1.7">
+          Dans BarOS → <strong>Config → Intégrations</strong> :<br>
+          • Collez votre clé API dans le champ <em>Clé API Notchpay</em><br>
+          • Entrez un nom expéditeur (11 car. max, ex: <em>LeBarAmos</em>) — c'est ce que vos clients verront à la place d'un numéro<br>
+          • Cliquez <strong>Sauvegarder</strong> puis <strong>Tester la connexion</strong>
+        </div>
+        <button class="btn btn-sm btn-ac" style="margin-top:8px" onclick="closeM('m-sms-guide');go('config',null)">→ Aller dans Config</button>
+      </div>
+    </div>
+
+    <!-- Étape 5 -->
+    <div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start">
+      <div style="width:28px;height:28px;border-radius:50%;background:var(--ac);color:#0a0a0f;font-family:Syne,sans-serif;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0">5</div>
+      <div>
+        <div style="font-weight:600;font-size:13px;margin-bottom:4px">Envoyer votre première campagne</div>
+        <div style="font-size:12px;color:var(--mt);line-height:1.7">
+          De retour ici → choisissez un <strong>segment</strong> (ex: tous, ou inactifs +14j).<br>
+          Rédigez votre message (160 car. max). Utilisez les variables <code style="background:var(--s2);padding:1px 5px;border-radius:3px;color:var(--ac)">{prenom}</code> pour personnaliser.<br>
+          Vérifiez l'aperçu, puis cliquez <strong>Envoyer via Notchpay</strong>. L'envoi se fait automatiquement à tous les clients du segment qui ont un numéro.
+        </div>
+      </div>
+    </div>
+
+    <!-- Numéros clients -->
+    <div style="background:rgba(255,94,94,.06);border:1px solid rgba(255,94,94,.2);border-radius:var(--rs);padding:12px 14px;margin-bottom:18px">
+      <div style="font-weight:600;font-size:12px;color:var(--dg);margin-bottom:5px">⚠️ Format des numéros clients</div>
+      <div style="font-size:12px;color:var(--mt);line-height:1.7">
+        Les numéros doivent être enregistrés au format international dans les fiches clients :<br>
+        ✅ <code style="background:var(--s2);padding:1px 5px;border-radius:3px">+237 6XX XXX XXX</code> &nbsp;ou&nbsp; <code style="background:var(--s2);padding:1px 5px;border-radius:3px">237 6XXXXXXXX</code><br>
+        ❌ <code style="background:var(--s2);padding:1px 5px;border-radius:3px;color:var(--dg)">06XX XXX XXX</code> (format local sans indicatif — non reconnu)
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div style="font-family:Syne,sans-serif;font-size:12px;font-weight:700;color:var(--mt);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Questions fréquentes</div>
+
+    <div style="font-size:12px;color:var(--mt);line-height:1.8">
+      <div style="margin-bottom:8px"><strong style="color:var(--tx)">Mon solde Notchpay est suffisant pour combien de SMS ?</strong><br>
+      À ~5 FCFA/SMS : 1 000 FCFA = 200 SMS · 5 000 FCFA = 1 000 SMS.</div>
+      <div style="margin-bottom:8px"><strong style="color:var(--tx)">Les clients reçoivent le SMS de quel numéro ?</strong><br>
+      Ils verront le nom expéditeur que vous avez configuré (ex: <em>LeBarAmos</em>), pas un numéro de téléphone.</div>
+      <div style="margin-bottom:8px"><strong style="color:var(--tx)">Puis-je tester avant d'envoyer à tous ?</strong><br>
+      Oui — créez un client fictif avec votre propre numéro, puis faites un segment ciblé.</div>
+      <div><strong style="color:var(--tx)">Le bouton "Tester la connexion" dit "Erreur réseau"</strong><br>
+      Vérifiez que votre connexion internet est active et que la clé est bien collée (sans espace avant/après).</div>
+    </div>
+
+    <div style="margin-top:18px;text-align:center">
+      <button class="btn btn-ac" style="justify-content:center" onclick="closeM('m-sms-guide')">✓ Compris, fermer le guide</button>
+    </div>
+  </div>
+</div>
+
+<!-- RAPPORTS -->
+<div class="page" id="pg-rapports">
+  <!-- Filtres période -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+    <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center">
+      <button class="btn btn-sm" id="rpt-btn-day" onclick="setRptPeriod('day')" style="border-color:var(--ac);color:var(--ac)">📅 Aujourd'hui</button>
+      <button class="btn btn-sm" id="rpt-btn-week" onclick="setRptPeriod('week')">📅 7 jours</button>
+      <button class="btn btn-sm" id="rpt-btn-month" onclick="setRptPeriod('month')">📅 Ce mois</button>
+      <button class="btn btn-sm" id="rpt-btn-year" onclick="setRptPeriod('year')">📅 Cette année</button>
+      <div style="display:flex;align-items:center;gap:4px;margin-left:4px">
+        <input class="finp" type="text" id="rpt-date-from" placeholder="JJ/MM/AAAA" inputmode="numeric" maxlength="10" oninput="fmtDateInput(this)" style="padding:4px 8px;font-size:11px;width:115px">
+        <span style="font-size:11px;color:var(--mt)">→</span>
+        <input class="finp" type="text" id="rpt-date-to" placeholder="JJ/MM/AAAA" inputmode="numeric" maxlength="10" oninput="fmtDateInput(this)" style="padding:4px 8px;font-size:11px;width:115px">
+        <button class="btn btn-sm" onclick="setRptPeriod('custom')">OK</button>
+      </div>
+    </div>
+    <div style="display:flex;gap:5px">
+      <button class="btn btn-sm btn-gn" onclick="exportRapportPDF()">⬇️ PDF Rapport</button>
+      <button class="btn btn-sm" onclick="sendRapportWA()">📲 WhatsApp</button>
+      <button class="btn btn-sm" onclick="showBTPanelManager()" style="border-color:rgba(124,108,255,.4);color:#a78bfa">📡 Bluetooth</button>
+    </div>
+  </div>
+  <!-- KPIs dynamiques -->
+  <div class="kg g4" style="margin-bottom:14px">
+    <div class="kpi hi"><div class="kpi-l">💵 Chiffre d'affaires</div><div class="kpi-v"><span id="r-ca">0</span> <small>F</small></div><div class="dt nt" id="r-period-lbl">aujourd'hui</div></div>
+    <div class="kpi"><div class="kpi-l">🧾 Commandes livrées</div><div class="kpi-v" id="r-cmd">0</div><div class="dt nt">validées</div></div>
+    <div class="kpi"><div class="kpi-l">💸 Ticket moyen</div><div class="kpi-v"><span id="r-avg">0</span> <small>F</small></div><div class="dt nt">par commande</div></div>
+    <div class="kpi red"><div class="kpi-l">💧 Pertes stock</div><div class="kpi-v" id="r-perte" style="color:var(--dg)">0 <small>F</small></div><div class="dt dn">écarts</div></div>
+  </div>
+  <!-- Graphiques + Paiements -->
+  <div class="row g2" style="margin-bottom:14px">
+    <div class="card"><div class="ch"><span class="ct">Répartition paiements</span></div><div id="rpt-pay"></div></div>
+    <div class="card"><div class="ch"><span class="ct" id="rpt-chart-title">CA par jour</span></div><div class="bars" id="rpt-chart" style="height:85px"></div></div>
+  </div>
+  <!-- Top serveurs + Stock critique -->
+  <div class="row g2">
+    <div class="card"><div class="ch"><span class="ct">🏆 Top serveurs (période)</span></div><div id="rpt-serveurs"></div></div>
+    <div class="card"><div class="ch"><span class="ct">📦 Stock critique</span></div><div id="rpt-stock-critique"></div></div>
+  </div>
+
+  <!-- ── SECTION POINTAGE PERSONNEL ── -->
+  <div class="card" style="margin-top:14px">
+    <div class="ch" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+      <span class="ct">🕐 Pointages du personnel</span>
+      <div style="display:flex;gap:5px;align-items:center">
+        <select class="finp" id="rpt-ptg-emp" style="padding:4px 8px;font-size:11px" onchange="renderRptPointage()">
+          <option value="">Tous les employés</option>
+        </select>
+        <button class="btn btn-sm" onclick="toggleRptPtgDetail()">📋 Détail</button>
+      </div>
+    </div>
+    <!-- KPIs pointage -->
+    <div class="kg g4" style="margin:10px 0 8px" id="rpt-ptg-kpis"></div>
+    <!-- Tableau récap par employé -->
+    <div id="rpt-ptg-table" style="overflow-x:auto"></div>
+    <!-- Détail jour par jour (caché par défaut) -->
+    <div id="rpt-ptg-detail" style="display:none;margin-top:10px"></div>
+  </div>
+</div>
+
+<!-- CONFIG -->
+<div class="page" id="pg-config">
+  <div class="row g2">
+    <div class="card">
+      <div class="ch"><span class="ct">Établissement</span></div>
+      <div class="frow"><div class="flbl">Nom</div><input class="finp" id="cfg-nom"></div>
+      <div class="frow"><div class="flbl">Ville</div><input class="finp" id="cfg-ville"></div>
+      <div class="frow"><div class="flbl">Tél manager (WhatsApp)</div><input class="finp" id="cfg-tel"></div>
+      <div class="frow"><div class="flbl">Objectif CA soir (FCFA)</div><input class="finp" type="number" id="cfg-obj"></div>
+      <div class="frow" style="margin-top:10px;padding-top:10px;border-top:1px solid var(--bd)">
+        <div class="flbl">Logo de l'établissement</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:6px">
+          <div id="logo-preview" style="width:60px;height:60px;border:1px dashed var(--bd2);border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--mt);overflow:hidden;flex-shrink:0;background:var(--s2)">Aucun</div>
+          <div style="flex:1">
+            <input type="file" id="logo-input" accept="image/*" onchange="handleLogoUpload(this)" style="display:none">
+            <div style="display:flex;gap:5px;flex-wrap:wrap">
+              <button class="btn btn-sm" onclick="document.getElementById('logo-input').click()">📎 Choisir un logo</button>
+              <button class="btn btn-sm btn-dg" id="logo-del-btn" onclick="deleteLogo()" style="display:none">✕ Supprimer</button>
+            </div>
+            <div style="font-size:10px;color:var(--mt);margin-top:5px">PNG, JPG · Carré, fond blanc recommandé · Max 5 Mo</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-ac btn-full" onclick="saveConfig()">Enregistrer</button>
+    </div>
+    <div class="card" style="margin-top:11px">
+      <div class="ch"><span class="ct">🔌 Intégrations</span></div>
+      <div style="font-size:11px;color:var(--mt);margin-bottom:12px;line-height:1.7">
+        Configurez vos clés API pour activer l'envoi SMS automatique via Notchpay.<br>
+        Créez un compte gratuit sur <strong style="color:var(--ac)">notchpay.co</strong> → Paramètres → Clés API.
+      </div>
+      <div class="frow">
+        <div class="flbl">Clé API Notchpay <span style="color:var(--dg)">*</span></div>
+        <div style="display:flex;gap:5px">
+          <input class="finp" id="cfg-notchpay-key" type="password" placeholder="sk_live_XXXXXXXXXXXXXXXXXX" style="flex:1">
+          <button class="btn btn-sm" onclick="toggleKeyVis('cfg-notchpay-key',this)">👁</button>
+        </div>
+      </div>
+      <div class="frow">
+        <div class="flbl">Nom expéditeur SMS <span style="color:var(--mt)">(11 car. max)</span></div>
+        <input class="finp" id="cfg-sms-sender" placeholder="MonBar" maxlength="11">
+      </div>
+      <div style="display:flex;gap:6px">
+        <button class="btn btn-sm btn-gn" onclick="testNotchpay()">🧪 Tester la connexion</button>
+        <button class="btn btn-sm btn-ac" onclick="saveIntegrations()">Sauvegarder</button>
+      </div>
+      <div id="notchpay-test-result" style="margin-top:8px;font-size:11px"></div>
+    </div>
+
+    <!-- ═══ TABLETTE DE POINTAGE ═══ -->
+    <div class="card" style="margin-top:11px">
+      <div class="ch"><span class="ct">📟 Tablette de pointage</span></div>
+      <div style="font-size:11px;color:var(--mt);margin-bottom:14px;line-height:1.8">
+        Scannez le QR code ci-dessous depuis l'application <strong style="color:var(--ac)">baros-pointage.html</strong> pour la configurer automatiquement — aucune saisie manuelle nécessaire.
+      </div>
+
+      <!-- QR Code de configuration -->
+      <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">
+        <div style="text-align:center;flex-shrink:0">
+          <div style="background:#fff;border-radius:10px;padding:10px;display:inline-block;margin-bottom:6px;cursor:pointer;transition:transform .15s"
+               onclick="openCfgQRFullscreen()"
+               onmouseover="this.style.transform='scale(1.04)'"
+               onmouseout="this.style.transform='scale(1)'"
+               title="Toucher pour agrandir">
+            <canvas id="cfg-qr-canvas" width="140" height="140"></canvas>
+          </div>
+          <div style="font-size:10px;color:var(--mt)">👆 Toucher pour agrandir</div>
+        </div>
+
+        <div style="flex:1;min-width:200px">
+          <div style="font-size:11px;color:var(--mt);margin-bottom:8px;line-height:1.7">
+            Ce QR code contient les informations de connexion chiffrées pour la tablette :<br>
+            URL Supabase · Clé API · ID établissement
+          </div>
+
+          <!-- UUID affiché -->
+          <div style="font-size:10px;color:var(--mt);margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em">ID établissement</div>
+          <div style="display:flex;gap:5px;align-items:center;margin-bottom:10px">
+            <div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--rs);padding:7px 10px;font-size:10px;font-family:monospace;color:var(--ac);flex:1;word-break:break-all" id="cfg-etab-uuid">—</div>
+            <button class="btn btn-sm" onclick="copyUUID()" title="Copier">📋</button>
+          </div>
+
+          <!-- Instructions -->
+          <div style="font-size:11px;color:var(--mt);line-height:1.8">
+            <strong style="color:var(--tx)">Comment configurer la tablette :</strong><br>
+            1. Ouvrir <code style="background:var(--s2);padding:1px 5px;border-radius:3px;color:var(--ac)">baros-pointage.html</code> dans Chrome<br>
+            2. Appuyer sur <strong>"Scanner le QR de config"</strong><br>
+            3. Pointer la caméra vers ce QR code<br>
+            4. ✅ Configuration automatique en 3 secondes
+          </div>
+
+          <button class="btn btn-sm" style="margin-top:10px;gap:5px" onclick="regenererQR()">🔄 Régénérer le QR</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ct">Articles (menu)</span>
+        <div style="display:flex;gap:5px">
+          <button class="btn btn-sm btn-wn" onclick="loadMenuDefautCam()">🇨🇲 Menu par défaut</button>
+          <button class="btn btn-sm btn-ac" onclick="openNewStk()">+ Article</button>
+        </div>
+      </div>
+      <input class="finp" id="menu-search" placeholder="🔍 Rechercher un article, une catégorie, un mot-clé…" oninput="menuSearch(this.value)" style="margin-bottom:10px">
+      <div id="menu-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMINISTRATION (admin uniquement) -->
+<div class="page" id="pg-admin">
+  <div class="kg g3" style="margin-bottom:14px">
+    <div class="kpi hi"><div class="kpi-l">👥 Comptes enregistrés</div><div class="kpi-v" id="adm-total">0</div><div class="dt nt">utilisateurs</div></div>
+    <div class="kpi"><div class="kpi-l">✅ Comptes actifs</div><div class="kpi-v" id="adm-actifs" style="color:var(--gn)">0</div><div class="dt up">activés</div></div>
+    <div class="kpi red"><div class="kpi-l">⏳ En attente</div><div class="kpi-v" id="adm-pending" style="color:var(--wn)">0</div><div class="dt wn">à activer</div></div>
+    <div class="kpi" style="border-color:rgba(255,80,80,.3);background:rgba(255,80,80,.06)"><div class="kpi-l">🔒 Comptes bloqués</div><div class="kpi-v" id="adm-locked" style="color:#ff5050">0</div><div class="dt" style="color:#ff5050">trop de tentatives</div></div>
+  </div>
+
+  <!-- ── Panneau comptes bloqués ── -->
+  <div class="card" id="adm-locked-panel" style="display:none;border-color:rgba(255,80,80,.3);margin-bottom:14px">
+    <div class="ch">
+      <span class="ct" style="color:#ff5050">🔒 Comptes bloqués — trop de tentatives de connexion</span>
+      <button class="btn btn-sm" onclick="loadAdmin()" style="font-size:11px">↻ Actualiser</button>
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Utilisateur</th><th>Email</th><th>Bloqué jusqu'à</th><th>Tentatives</th><th>Action</th></tr></thead>
+        <tbody id="adm-locked-tb"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ch">
+      <span class="ct">🔐 Gestion des utilisateurs</span>
+      <div style="display:flex;gap:6px;align-items:center">
+        <select class="finp" id="adm-filter" onchange="loadAdmin()" style="width:auto;padding:3px 9px;font-size:11px">
+          <option value="">Tous</option>
+          <option value="active">Actifs</option>
+          <option value="pending">En attente</option>
+          <option value="inactive">Désactivés</option>
+        </select>
+        <button class="btn btn-sm btn-gn" onclick="activateAllPending()">✅ Tout activer</button>
+      </div>
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Utilisateur</th><th>Email</th><th>Établissement</th><th>Rôle</th><th>Statut</th><th>Inscription</th><th>Action</th></tr></thead>
+        <tbody id="adm-tb"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════ PAGE TABLES & QR ═════════════════ -->
+<!-- ═══════════════════════════════════════════════════════
+     PAGE BARS & COMPARTIMENTS
+════════════════════════════════════════════════════════ -->
+<div class="page" id="pg-bars">
+
+  <!-- KPIs -->
+  <div class="tbl-stat-row">
+    <div class="kpi hi"><div class="kpi-l">🍺 Total Bars</div><div class="kpi-v" id="bar-stat-total">0</div></div>
+    <div class="kpi"><div class="kpi-l">🔲 Compartiments</div><div class="kpi-v" id="bar-stat-comps">0</div></div>
+    <div class="kpi"><div class="kpi-l">🍳 Cuisines</div><div class="kpi-v" id="bar-stat-cuisine">0</div></div>
+    <div class="kpi"><div class="kpi-l">✅ Actifs</div><div class="kpi-v" id="bar-stat-actifs">0</div></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start">
+
+    <!-- Liste Bars -->
+    <div class="card" style="padding:0">
+      <div class="ch" style="padding:12px 14px">
+        <span class="ct">🍺 Bars</span>
+        <button class="btn btn-sm btn-ac" onclick="openCreateBar()">+ Ajouter un Bar</button>
+      </div>
+      <div id="bars-list"><div style="text-align:center;padding:32px;color:var(--mt)">Chargement…</div></div>
+    </div>
+
+    <!-- Liste Compartiments -->
+    <div class="card" style="padding:0">
+      <div class="ch" style="padding:12px 14px">
+        <span class="ct">🔲 Compartiments</span>
+        <button class="btn btn-sm btn-ac" onclick="openCreateCompartiment()">+ Ajouter</button>
+      </div>
+      <div id="comps-list"><div style="text-align:center;padding:32px;color:var(--mt)">Chargement…</div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL BAR CREATE/EDIT -->
+<div class="modal-bg" id="m-bar"><div class="modal" style="width:420px">
+  <div class="mh"><span class="mt2" id="bar-modal-title">🍺 Créer un Bar</span><span class="mx" onclick="closeM('m-bar')">✕</span></div>
+  <input type="hidden" id="bar-edit-id">
+  <div class="frow"><div class="flbl">Nom *</div>
+    <input class="finp" id="bar-nom" placeholder="Bar Principal, Bar VIP, Cuisine…">
+  </div>
+  <div class="frow"><div class="flbl">Type *</div>
+    <select class="finp" id="bar-type">
+      <option value="bar">Bar</option>
+      <option value="cuisine">Cuisine</option>
+    </select>
+  </div>
+  <div class="frow" style="flex-direction:row;align-items:center;gap:10px;justify-content:space-between">
+    <div class="flbl">Actif</div>
+    <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+      <input type="checkbox" id="bar-actif" checked style="width:16px;height:16px;accent-color:var(--ac)">
+      <span style="font-size:12px;color:var(--mt)">Activé</span>
+    </label>
+  </div>
+  <div style="display:flex;gap:7px;margin-top:12px">
+    <button class="btn" style="flex:1;justify-content:center" onclick="closeM('m-bar')">Annuler</button>
+    <button class="btn btn-ac" style="flex:2;justify-content:center" id="bar-save-btn" onclick="saveBar()">✓ Enregistrer</button>
+  </div>
+</div></div>
+
+<!-- MODAL COMPARTIMENT CREATE/EDIT -->
+<div class="modal-bg" id="m-comp"><div class="modal" style="width:420px">
+  <div class="mh"><span class="mt2" id="comp-modal-title">🔲 Créer un Compartiment</span><span class="mx" onclick="closeM('m-comp')">✕</span></div>
+  <input type="hidden" id="comp-edit-id">
+  <div class="frow"><div class="flbl">Nom *</div>
+    <input class="finp" id="comp-nom" placeholder="Terrasse, Jardin, Salle VIP…">
+  </div>
+  <div class="frow"><div class="flbl">Bar parent *</div>
+    <select class="finp" id="comp-bar-id">
+      <option value="">— Sélectionner un Bar —</option>
+    </select>
+  </div>
+  <div class="frow" style="flex-direction:row;align-items:center;gap:10px;justify-content:space-between">
+    <div class="flbl">Actif</div>
+    <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+      <input type="checkbox" id="comp-actif" checked style="width:16px;height:16px;accent-color:var(--ac)">
+      <span style="font-size:12px;color:var(--mt)">Activé</span>
+    </label>
+  </div>
+  <div style="display:flex;gap:7px;margin-top:12px">
+    <button class="btn" style="flex:1;justify-content:center" onclick="closeM('m-comp')">Annuler</button>
+    <button class="btn btn-ac" style="flex:2;justify-content:center" id="comp-save-btn" onclick="saveCompartiment()">✓ Enregistrer</button>
+  </div>
+</div></div>
+
+<div class="page" id="pg-tables">
+
+  <!-- KPIs -->
+  <div class="tbl-stat-row">
+    <div class="kpi"><div class="kpi-l">🪑 Total tables</div><div class="kpi-v" id="tbl-stat-total">0</div></div>
+    <div class="kpi hi"><div class="kpi-l">✅ Actives</div><div class="kpi-v" id="tbl-stat-actif">0</div></div>
+    <div class="kpi"><div class="kpi-l">🟢 Libres</div><div class="kpi-v" id="tbl-stat-libre" style="color:var(--gn)">0</div></div>
+    <div class="kpi"><div class="kpi-l">🟡 Occupées</div><div class="kpi-v" id="tbl-stat-occup" style="color:var(--wn)">0</div></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 340px;gap:12px;align-items:start">
+
+    <!-- Liste tables -->
+    <div class="card" style="padding:0">
+      <div class="ch" style="padding:12px 14px">
+        <span class="ct">🪑 Tables</span>
+        <button class="btn btn-sm btn-ac" onclick="openCreateTable()">+ Ajouter une table</button>
+      </div>
+      <div id="tbl-list"><div style="text-align:center;padding:32px;color:var(--mt)">Chargement…</div></div>
+    </div>
+
+    <!-- Appels en attente -->
+    <div class="card" style="padding:0;position:sticky;top:16px">
+      <div class="ch" style="padding:12px 14px">
+        <span class="ct">🔔 Appels clients</span>
+        <span class="pill p-n" id="appels-count-lbl">0 en attente</span>
+      </div>
+      <div id="tbl-appels-list" style="max-height:65vh;overflow-y:auto">
+        <div style="text-align:center;padding:24px;color:var(--mt);font-size:12px">Aucun appel en attente</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</main>
+</div>
+
+<!-- ===== MODALS ===== -->
+
+<!-- COMMANDE -->
+<div class="modal-bg" id="m-cmd"><div class="modal">
+  <div class="mh"><span class="mt2">Nouvelle commande</span><span class="mx" onclick="closeM('m-cmd')">✕</span></div>
+  <div class="frow"><div class="flbl">Table</div><select class="finp" id="mc-tbl"></select></div>
+  <div class="frow"><div class="flbl">Serveur</div><select class="finp" id="mc-srv"></select></div>
+  <div class="frow"><div class="flbl">Articles</div><input class="finp" id="mc-itm" placeholder="Heineken x3, Whisky x1"></div>
+  <div class="frow"><div class="flbl">Montant (FCFA)</div><input class="finp" type="number" id="mc-amt" placeholder="0"></div>
+  <div class="frow"><div class="flbl">Paiement</div><select class="finp" id="mc-pay"><option>Cash</option><option>MTN MoMo</option><option>Orange Money</option><option>Carte bancaire</option></select></div>
+  <div class="frow"><div class="flbl">Remise (%)</div><input class="finp" type="number" id="mc-disc" placeholder="0" min="0" max="100"></div>
+  <div style="display:flex;gap:7px;margin-top:4px">
+    <button class="btn" style="flex:1;justify-content:center" onclick="closeM('m-cmd')">Annuler</button>
+    <button class="btn btn-ac" style="flex:1;justify-content:center" onclick="addOrd()">✓ Enregistrer</button>
+  </div>
+</div></div>
+
+<!-- STOCK -->
+<!-- Mes établissements (multi-établissements) -->
+<div class="modal-bg" id="m-multi"><div class="modal">
+  <div class="mh"><span class="mt2">🏢 Mes établissements</span><span class="mx" onclick="closeM('m-multi')">✕</span></div>
+  <div class="mt-sum" id="multi-sum"></div>
+  <div id="multi-list" class="mt-list"></div>
+  <div class="mt-sep">Ajouter un établissement</div>
+  <div class="frow"><div class="flbl">Nom</div><input class="finp" id="me-nom" placeholder="ex: Bar Le Palmier"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <div class="frow"><div class="flbl">Ville</div><input class="finp" id="me-ville" placeholder="ex: Ebolowa"></div>
+    <div class="frow"><div class="flbl">Type</div><select class="finp" id="me-type"><option>Bar</option><option>Restaurant</option><option>Boîte de nuit</option><option>Hôtel</option><option>Complexe</option></select></div>
+  </div>
+  <div class="auth-err" id="me-err"></div>
+  <button class="btn btn-ac btn-full" id="me-btn" onclick="createEtab()">+ Créer et ouvrir cet établissement</button>
+</div></div>
+
+<!-- Paiements mobiles -->
+<div class="modal-bg" id="m-pay"><div class="modal">
+  <div class="mh"><span class="mt2">💳 Paiements mobiles</span><span class="mx" onclick="closeM('m-pay')">✕</span></div>
+  <div class="pay-tabs">
+    <button class="pay-tab on" id="pt-wait" onclick="payTab('wait')">À valider</button>
+    <button class="pay-tab" id="pt-hist" onclick="payTab('hist')">Historique</button>
+    <button class="pay-tab" id="pt-cfg" onclick="payTab('cfg')">Numéros</button>
+  </div>
+  <div id="pay-body" class="mt-list"></div>
+</div></div>
+
+<div class="modal-bg" id="m-stk"><div class="modal">
+  <div class="mh"><span class="mt2" id="stk-modal-title">Ajouter un article</span><span class="mx" onclick="closeM('m-stk')">✕</span></div>
+  <input type="hidden" id="stk-edit-id">
+  <div style="display:grid;grid-template-columns:56px 1fr;gap:8px">
+    <div class="frow"><div class="flbl">Icône</div><input class="finp" id="si" placeholder="🍺" maxlength="2"></div>
+    <div class="frow"><div class="flbl">Nom de l'article</div><input class="finp" id="sn" placeholder="ex: Castel 65cl"></div>
+  </div>
+  <div class="frow"><div class="flbl">Catégorie</div><select class="finp" id="sc">
+    <option>Boissons gazeuses</option><option>Bières</option><option>Vins</option><option>Whiskys</option>
+    <option>Liqueurs</option><option>Cocktails</option><option>Jus</option><option>Eau</option>
+    <option>Café</option><option>Thé</option><option>Petit-déjeuner</option><option>Entrées</option>
+    <option>Plats</option><option>Grillades</option><option>Poissons</option><option>Accompagnements</option>
+    <option>Desserts</option><option>Glaces</option><option>Chichas</option><option>Divers</option>
+  </select></div>
+  <div class="frow"><div class="flbl">Mots-clés (recherche, variantes séparées par virgules)</div><input class="finp" id="sk" placeholder="ex: 33cl, 65cl, glacé"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <div class="frow"><div class="flbl">Quantité initiale</div><input class="finp" type="number" id="sq" placeholder="0" min="0"></div>
+    <div class="frow"><div class="flbl">Seuil d'alerte</div><input class="finp" type="number" id="ss" placeholder="10" min="0"></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <div class="frow"><div class="flbl">Prix d'achat unitaire (F)</div><input class="finp" type="number" id="sa" placeholder="0" min="0"></div>
+    <div class="frow"><div class="flbl">Prix de vente unitaire (F)</div><input class="finp" type="number" id="sp" placeholder="0" min="0"></div>
+  </div>
+  <div class="stk-extra">
+    <div class="flbl">📷 Photo (affichée sur le menu client)</div>
+    <div class="stk-photo-row">
+      <img id="sph-prev" class="stk-photo-prev" alt="" style="display:none">
+      <label class="btn btn-sm">Choisir une photo<input type="file" id="sph-file" accept="image/*" style="display:none" onchange="stkPhotoPick(this)"></label>
+      <button class="btn btn-sm btn-dg" type="button" id="sph-del" style="display:none" onclick="stkPhotoClear()">Retirer</button>
+    </div>
+    <input type="hidden" id="sph">
+    <div class="frow"><div class="flbl">Nom en anglais</div><input class="finp" id="sne" placeholder="ex: Castel beer 65cl"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div class="frow"><div class="flbl">Description (FR)</div><input class="finp" id="sdf" placeholder="ex: Bière blonde bien fraîche"></div>
+      <div class="frow"><div class="flbl">Description (EN)</div><input class="finp" id="sde" placeholder="ex: Cold lager beer"></div>
+    </div>
+    <div class="frow"><div class="flbl">Allergènes / infos (optionnel)</div><input class="finp" id="sal" placeholder="ex: gluten, arachide"></div>
+  </div>
+  <div class="frow" style="flex-direction:row;align-items:center;gap:10px;justify-content:space-between">
+    <div class="flbl">⭐ Favori (affiché en tête de catégorie)</div>
+    <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+      <input type="checkbox" id="sf" style="width:16px;height:16px;accent-color:var(--ac)">
+    </label>
+  </div>
+  <div style="display:flex;gap:7px;margin-top:4px">
+    <button class="btn" style="flex:1;justify-content:center" onclick="closeM('m-stk')">Annuler</button>
+    <button class="btn btn-ac" style="flex:1;justify-content:center" onclick="saveStk()">✓ Enregistrer</button>
+  </div>
+</div></div>
+
+<!-- RÉAPPROVISIONNEMENT -->
+<div class="modal-bg" id="m-restock"><div class="modal" style="max-width:340px">
+  <div class="mh"><span class="mt2">Réapprovisionner</span><span class="mx" onclick="closeM('m-restock')">✕</span></div>
+  <input type="hidden" id="rs-id">
+  <div style="font-size:13px;font-weight:600;color:var(--tx);margin-bottom:10px" id="rs-nom"></div>
+  <div class="frow"><div class="flbl">Quantité à ajouter</div><input class="finp" type="number" id="rs-qty" placeholder="0" min="1"></div>
+  <div class="frow"><div class="flbl">Nouveau prix d'achat unitaire (optionnel)</div><input class="finp" type="number" id="rs-pa" placeholder="Laisser vide = inchangé"></div>
+  <div style="display:flex;gap:7px;margin-top:4px">
+    <button class="btn" style="flex:1;justify-content:center" onclick="closeM('m-restock')">Annuler</button>
+    <button class="btn btn-gn" style="flex:1;justify-content:center" onclick="doRestock()">📦 Ajouter au stock</button>
+  </div>
+</div></div>
+
+<!-- CLIENT -->
+<div class="modal-bg" id="m-cli"><div class="modal">
+  <div class="mh"><span class="mt2">Nouveau client</span><span class="mx" onclick="closeM('m-cli')">✕</span></div>
+  <div class="frow"><div class="flbl">Nom complet</div><input class="finp" id="cn"></div>
+  <div class="frow"><div class="flbl">Téléphone WhatsApp</div><input class="finp" id="ct" placeholder="+237 6XX XXX XXX"></div>
+  <div class="frow"><div class="flbl">Crédit autorisé (FCFA)</div><input class="finp" type="number" id="cc" placeholder="0"></div>
+  <div style="display:flex;gap:7px;margin-top:4px">
+    <button class="btn" style="flex:1;justify-content:center" onclick="closeM('m-cli')">Annuler</button>
+    <button class="btn btn-ac" style="flex:1;justify-content:center" onclick="addCli()">✓ Enregistrer</button>
+  </div>
+</div></div>
+
+<!-- EMPLOYÉ (formulaire complet) -->
+<div class="modal-bg" id="m-emp"><div class="modal" style="width:520px">
+  <div class="mh"><span class="mt2" id="emp-modal-title">Ajouter un employé</span><span class="mx" onclick="closeM('m-emp')">✕</span></div>
+  <input type="hidden" id="emp-edit-id">
+  
+  <!-- ── PHOTO ── -->
+  <div class="form-section" style="margin-bottom:12px">
+    <div class="form-section-title">📷 Photo de l'employé</div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <!-- Avatar preview -->
+      <div id="emp-photo-preview" style="
+        width:90px;height:90px;border-radius:50%;
+        background:var(--s2);border:2px solid var(--bd2);
+        overflow:hidden;display:flex;align-items:center;justify-content:center;
+        font-size:36px;flex-shrink:0;cursor:pointer;position:relative;
+      " onclick="openEmpCamera()" title="Cliquer pour prendre une photo">👤
+        <div style="
+          position:absolute;bottom:0;left:0;right:0;
+          background:rgba(0,0,0,.55);text-align:center;
+          font-size:9px;color:#fff;padding:3px 0;font-weight:600;
+          letter-spacing:.03em;
+        ">MODIFIER</div>
+      </div>
+      <!-- Actions -->
+      <div style="display:flex;flex-direction:column;gap:7px;flex:1">
+        <button type="button" class="btn btn-ac btn-sm" style="justify-content:center" onclick="openEmpCamera()">📷 Prendre une photo</button>
+        <button type="button" class="btn btn-sm" style="justify-content:center" onclick="document.getElementById('emp-photo-file').click()">🖼 Depuis la galerie</button>
+        <button type="button" class="btn btn-sm" id="emp-photo-clear-btn" onclick="clearEmpPhoto()" style="display:none;color:var(--dg);justify-content:center">✕ Supprimer la photo</button>
+        <input type="file" id="emp-photo-file" accept="image/*" style="display:none" onchange="handleEmpPhotoFile(this)">
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-title">👤 Informations personnelles</div>
+    <div class="frow"><div class="flbl">Nom complet *</div><input class="finp" id="en" placeholder="Jean-Baptiste Fouda"></div>
+    <div class="form-row-2">
+      <div class="frow"><div class="flbl">Date de naissance</div><input class="finp" type="text" id="e-dob" placeholder="JJ/MM/AAAA" inputmode="numeric" maxlength="10" oninput="fmtDateInput(this)"></div>
+      <div class="frow"><div class="flbl">N° CNI</div><input class="finp" id="e-cni" placeholder="XXX XXX XXX"></div>
+    </div>
+    <div class="form-row-2">
+      <div class="frow"><div class="flbl">Téléphone</div><input class="finp" id="e-tel" placeholder="+237 6XX XXX XXX"></div>
+      <div class="frow"><div class="flbl">Quartier / Ville</div><input class="finp" id="e-ville" placeholder="Akwa, Douala"></div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-title">💼 Poste & Accès</div>
+    <div class="form-row-2">
+      <div class="frow"><div class="flbl">Rôle *</div>
+        <select class="finp" id="er">
+          <option>Serveur/Serveuse</option><option>Barman</option><option>Caissier(e)</option><option>Sécurité</option><option>Manager</option><option>Cuisinier(e)</option><option>Chef d'équipe</option><option>Technicien de surface</option>
+        </select>
+      </div>
+      <div class="frow"><div class="flbl">PIN app (4 chiffres) *</div><input class="finp" type="number" id="ep" placeholder="1234" min="1000" max="9999"></div>
+    </div>
+    <!-- ── BAR DE RATTACHEMENT ── -->
+    <div class="frow"><div class="flbl">Bar de rattachement</div>
+      <select class="finp" id="emp-bar-id">
+        <option value="">— Non assigné —</option>
+      </select>
+    </div>
+    <!-- ── FIN BAR ── -->
+    <div class="form-row-2">
+      <div class="frow"><div class="flbl">Date d'embauche</div><input class="finp" type="text" id="e-embauche" placeholder="JJ/MM/AAAA" inputmode="numeric" maxlength="10" oninput="fmtDateInput(this)"></div>
+      <div class="frow"><div class="flbl">Salaire mensuel (FCFA)</div><input class="finp" type="number" id="e-salaire" placeholder="60000"></div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-title">👨‍👩‍👧 Situation familiale</div>
+    <div class="form-row-3">
+      <div class="frow"><div class="flbl">Situation matrimoniale</div>
+        <select class="finp" id="e-matrimonial">
+          <option value="Célibataire">Célibataire</option>
+          <option value="Marié(e)">Marié(e)</option>
+          <option value="Divorcé(e)">Divorcé(e)</option>
+          <option value="Veuf/Veuve">Veuf/Veuve</option>
+        </select>
+      </div>
+      <div class="frow"><div class="flbl">Nbre d'enfants à charge</div><input class="finp" type="number" id="e-enfants" placeholder="0" min="0"></div>
+      <div class="frow"><div class="flbl">Contact urgence (tél)</div><input class="finp" id="e-urgence" placeholder="+237 6XX XXX XXX"></div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-title">🗓 Planning de travail</div>
+
+    <div class="flbl" style="margin-bottom:2px">Jours travaillés <span style="color:var(--mt);font-weight:400;font-size:10px">(cliquer pour activer/désactiver)</span></div>
+    <div class="day-chips" id="e-jours">
+      <button class="day-chip on" data-day="Lundi"    onclick="toggleDay(this)" type="button" title="Lundi">Lu</button>
+      <button class="day-chip on" data-day="Mardi"    onclick="toggleDay(this)" type="button" title="Mardi">Ma</button>
+      <button class="day-chip on" data-day="Mercredi" onclick="toggleDay(this)" type="button" title="Mercredi">Me</button>
+      <button class="day-chip on" data-day="Jeudi"    onclick="toggleDay(this)" type="button" title="Jeudi">Je</button>
+      <button class="day-chip on" data-day="Vendredi" onclick="toggleDay(this)" type="button" title="Vendredi">Ve</button>
+      <button class="day-chip on" data-day="Samedi"   onclick="toggleDay(this)" type="button" title="Samedi">Sa</button>
+      <button class="day-chip"    data-day="Dimanche" onclick="toggleDay(this)" type="button" title="Dimanche">Di</button>
+    </div>
+
+    <div class="flbl" style="margin-bottom:2px">Jour(s) de repos</div>
+    <div id="e-repos-display" style="margin-bottom:10px;min-height:24px">
+      <span class="repos-tag">🔴 Dimanche</span>
+    </div>
+
+    <div class="flbl" style="margin-bottom:5px">Plages horaires de travail</div>
+    <div id="e-plages">
+      <div class="plage-row" id="plage-row-0">
+        <span class="plage-lbl">De</span>
+        <input type="time" id="e-plage-0-d" value="08:00">
+        <span class="plage-lbl">à</span>
+        <input type="time" id="e-plage-0-f" value="17:00">
+        <div style="width:28px"></div>
+      </div>
+    </div>
+    <button class="btn btn-sm" type="button" onclick="addPlage()" style="margin-top:2px">+ Ajouter une plage</button>
+    <div style="font-size:10px;color:var(--mt);margin-top:5px">💡 Si le travail couvre plusieurs plages (ex: 08h–12h puis 20h–02h), ajouter une deuxième ligne.</div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-section-title">🏥 Antécédents médicaux</div>
+    <div class="frow"><div class="flbl">Allergies connues</div><input class="finp" id="e-allergies" placeholder="Aucune / Pénicilline, Arachides..."></div>
+    <div class="frow"><div class="flbl">Maladies chroniques</div><input class="finp" id="e-maladies" placeholder="Aucune / Diabète, Hypertension..."></div>
+    <div class="frow"><div class="flbl">Groupe sanguin</div>
+      <select class="finp" id="e-sanguin">
+        <option value="">Inconnu</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
+      </select>
+    </div>
+    <div class="frow"><div class="flbl">Notes médicales</div><textarea class="finp" id="e-notes-med" rows="2" placeholder="Informations complémentaires..."></textarea></div>
+  </div>
+
+  <div style="display:flex;gap:7px;margin-top:4px">
+    <button class="btn" style="flex:1;justify-content:center" onclick="closeM('m-emp')">Annuler</button>
+    <button class="btn btn-ac" style="flex:2;justify-content:center" id="emp-save-btn" onclick="saveEmp()">✓ Enregistrer l'employé</button>
+  </div>
+</div></div>
+
+<!-- FICHE EMPLOYÉ (lecture) -->
+<div class="modal-bg" id="m-emp-view"><div class="modal" style="width:520px">
+  <div class="mh"><span class="mt2">Fiche employé</span><span class="mx" onclick="closeM('m-emp-view')">✕</span></div>
+  <div id="emp-view-content"></div>
+</div></div>
+
+<!-- ÉVÉNEMENT -->
+<div class="modal-bg" id="m-evt"><div class="modal">
+  <div class="mh"><span class="mt2">Créer un événement</span><span class="mx" onclick="closeM('m-evt')">✕</span></div>
+  <div class="frow"><div class="flbl">Nom</div><input class="finp" id="ev-n"></div>
+  <div class="frow"><div class="flbl">Date</div><input class="finp" type="text" id="ev-d" placeholder="JJ/MM/AAAA" inputmode="numeric" maxlength="10" oninput="fmtDateInput(this)"></div>
+  <div class="frow"><div class="flbl">Prix entrée (FCFA)</div><input class="finp" type="number" id="ev-p" placeholder="0"></div>
+  <div class="frow"><div class="flbl">Places</div><input class="finp" type="number" id="ev-pl" placeholder="100"></div>
+  <div style="display:flex;gap:7px;margin-top:4px">
+    <button class="btn" style="flex:1;justify-content:center" onclick="closeM('m-evt')">Annuler</button>
+    <button class="btn btn-ac" style="flex:1;justify-content:center" onclick="addEvt()">✓ Créer</button>
+  </div>
+</div></div>
+
+
+<!-- MENU CAMEROUNAIS — Prévisualisation & édition des prix -->
+<div class="modal-bg" id="m-menu-cam"><div class="modal" style="width:560px">
+  <div class="mh">
+    <span class="mt2">🇨🇲 Menu camerounais par défaut</span>
+    <span class="mx" onclick="closeM('m-menu-cam')">✕</span>
+  </div>
+  <div style="font-size:11px;color:var(--mt);margin-bottom:12px">Modifiez les prix selon votre établissement, décochez les articles à exclure, puis cliquez sur Importer.</div>
+  <div class="frow" style="margin-bottom:8px"><div class="flbl">Quantité de stock initiale (appliquée à tous les articles importés)</div><input class="finp" type="number" id="cam-qty-init" value="50" min="0"></div>
+  <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap" id="cam-cat-filters"></div>
+  <div style="max-height:55vh;overflow-y:auto;padding-right:4px" id="cam-prod-list"></div>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid var(--bd)">
+    <div style="font-size:11px;color:var(--mt)"><span id="cam-count">0</span> articles sélectionnés</div>
+    <div style="display:flex;gap:7px">
+      <button class="btn" onclick="closeM('m-menu-cam')">Annuler</button>
+      <button class="btn btn-ac" onclick="importMenuCam()">✓ Importer la sélection</button>
+    </div>
+  </div>
+</div></div>
+
+
+<!-- ═══════ MODAL TABLE CREATE/EDIT ═══════ -->
+<div class="modal-bg" id="m-table"><div class="modal" style="width:460px">
+  <div class="mh"><span class="mt2" id="tbl-modal-title">🪑 Créer une table</span><span class="mx" onclick="closeM('m-table')">✕</span></div>
+  <div class="frow"><div class="flbl">Nom / Numéro *</div>
+    <input class="finp" id="tbl-nom" placeholder="T1, T2, Terrasse A…" oninput="this.value=this.value.toUpperCase()" maxlength="12">
+  </div>
+  <div class="frow"><div class="flbl">Zone (optionnel)</div>
+    <input class="finp" id="tbl-zone" placeholder="Salle principale, Terrasse, VIP…">
+  </div>
+  <!-- ── BAR/COMPARTIMENT ASSIGNMENT ── -->
+  <div class="frow"><div class="flbl">Bar (caisse) *</div>
+    <select class="finp" id="tbl-bar-id" onchange="onTblBarChange()">
+      <option value="">— Sélectionner un Bar —</option>
+    </select>
+  </div>
+  <div class="frow" id="tbl-comp-row" style="display:none"><div class="flbl">Compartiment</div>
+    <select class="finp" id="tbl-compartiment-id">
+      <option value="">— Aucun compartiment —</option>
+    </select>
+  </div>
+  <!-- ── FIN BAR/COMPARTIMENT ── -->
+  <div class="frow" style="flex-direction:row;align-items:center;gap:10px;justify-content:space-between">
+    <div class="flbl">Table active</div>
+    <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+      <input type="checkbox" id="tbl-actif" checked style="width:16px;height:16px;accent-color:var(--ac)">
+      <span style="font-size:12px;color:var(--mt)">Activée</span>
+    </label>
+  </div>
+  <div style="display:flex;gap:7px;margin-top:12px">
+    <button class="btn" style="flex:1;justify-content:center" onclick="closeM('m-table')">Annuler</button>
+    <button class="btn btn-ac" style="flex:2;justify-content:center" id="tbl-save-btn" onclick="saveTable()">✓ Enregistrer</button>
+  </div>
+</div></div>
+
+<!-- ═══════ QR CODE FULLSCREEN ═══════ -->
+<div id="tbl-qr-fullscreen">
+  <div class="tbl-qrf-nom" id="tbl-qrf-nom">Table</div>
+  <div id="tbl-qrf-qr"></div>
+  <div class="tbl-qrf-url" id="tbl-qrf-url"></div>
+  <div class="tbl-qrf-btns">
+    <button class="btn btn-ac" onclick="exportTableQRImage()">📥 Télécharger QR</button>
+    <button class="btn btn-ac" onclick="printTableCardFromQR()">📄 Télécharger PDF</button>
+    <button class="btn" onclick="copyTableUrl()">🔗 Copier lien</button>
+    <button class="btn" onclick="closeTblQRFullscreen()">✕ Fermer</button>
+  </div>
+</div>
+
+<div class="notif" id="notif"><div id="notif-msg"></div></div>
+
+<script src="js/app-05.js"></script>
+
+
+
+
+<script src="js/app-06.js"></script>
+
+<!-- ── OVERLAY CAMÉRA EMPLOYÉ ── -->
+<div id="emp-cam-overlay" style="display:none">
+  <video id="emp-cam-video" autoplay muted playsinline oncanplay="this.play()"></video>
+  <canvas id="emp-cam-canvas" style="display:none"></canvas>
+
+  <!-- Guide ovale -->
+  <div class="cam-guide"></div>
+  <div class="cam-hint">Centrez le visage dans le cercle</div>
+
+  <!-- Barre du haut -->
+  <div class="cam-topbar">
+    <div class="cam-topbar-title">📷 Photo employé</div>
+    <button class="cam-top-btn" onclick="switchEmpCam()" title="Retourner caméra">🔄</button>
+  </div>
+
+  <!-- Barre du bas -->
+  <div class="cam-botbar">
+    <div class="cam-btn-gallery" onclick="document.getElementById('emp-photo-file-cam').click()" title="Galerie">🖼</div>
+    <input type="file" id="emp-photo-file-cam" accept="image/*" style="display:none" onchange="handleEmpPhotoFile(this)">
+    <button class="cam-btn-capture" onclick="captureEmpPhoto()" title="Capturer"></button>
+    <button class="cam-btn-cancel" onclick="closeEmpCamera()" title="Annuler">✕</button>
+  </div>
+</div>
+
+<!-- ── MODALE QR PLEIN ÉCRAN ── -->
+<div id="qr-fullscreen">
+  <div class="qrf-nom" id="qrf-nom">—</div>
+  <div class="qrf-sub" id="qrf-sub">Badge de pointage</div>
+  <img id="qrf-img" src="" alt="QR Code">
+  <div id="qrf-id-info" style="font-size:10px;color:rgba(255,255,255,.35);margin-top:4px;font-family:monospace"></div>
+  <!-- BAROS QR FIX — boutons Télécharger QR + Imprimer badge + Export PDF -->
+  <div class="qrf-btns">
+    <button class="qrf-btn-pdf" onclick="exportQRImage()">📥 Télécharger QR</button>
+    <button class="qrf-btn-pdf" style="background:var(--ac2);color:#fff" onclick="exportQRpdfBadge()">🖨️ Imprimer badge</button>
+    <button class="qrf-btn-close" onclick="closeQRFullscreen()">✕ Fermer</button>
+  </div>
+</div>
+
+<script src="js/app-07.js"></script>
+
+
+<script src="js/app-08.js"></script>
+
+<!-- ═══════════════════════════════════════════════════════
+     PWA — Service Worker Registration
+     Ajouté lors de la migration PWA. Ne modifie aucune logique.
+═══════════════════════════════════════════════════════ -->
+<script src="js/app-09.js"></script>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     BAROS MGR COMM — Notifications actions manager → personnel
+     Bloc strictement additif. Zéro modification de code existant.
+     Principe : wrapper (hook) sur les fonctions manager existantes.
+     Tout envoi passe par _mgrComm() qui vérifie identité + cooldown.
+═══════════════════════════════════════════════════════════════════════ -->
+<script src="js/app-10.js"></script>
+
+
+<!-- BarOS Offline-First + Session 30j — Patch non invasif (inline) -->
+<script src="js/app-11.js"></script>
+<script src="js/menu-toggle.js"></script>
+<script src="js/stock-extra.js"></script>
+<script src="js/multi-etab.js"></script>
+<script src="js/paiements.js"></script>
+
+</body>
+</html>

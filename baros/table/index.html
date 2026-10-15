@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>BarOS — Table</title>
+<link rel="manifest" href="manifest-pointage.json">
+<link rel="icon" type="image/svg+xml" href="icons/icon-manager.svg">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/commande.css">
+<link rel="stylesheet" href="css/offline.css">
+<link rel="stylesheet" href="css/langue.css">
+<link rel="stylesheet" href="css/paiement.css">
+<link rel="stylesheet" href="css/accueil.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;900&display=swap">
+</head>
+<body>
+
+<!-- Splash -->
+<div id="splash">
+  <div class="spl-logo">BarOS</div>
+  <div class="spl-sub">Chargement de votre table…</div>
+  <div class="spl-dot"></div>
+</div>
+
+<!-- Contenu principal -->
+<div class="wrap" id="main-wrap" style="display:none">
+
+  <div class="hdr">
+    <div class="brand">BarOS</div>
+    <button class="lang-btn" id="lang-btn" onclick="toggleLang()" aria-label="Langue / Language">EN</button>
+    <div class="conn-dot" id="conn-dot" title="Connecté"></div>
+  </div>
+
+  <!-- Infos table -->
+  <div class="table-card">
+    <div class="table-badge libre" id="tbl-badge">● Libre</div>
+    <div class="table-nom" id="tbl-nom">—</div>
+    <div class="table-zone" id="tbl-zone"></div>
+    <div class="table-etab" id="tbl-etab"></div>
+  </div>
+
+  <!-- Statut de l'appel en cours -->
+  <div class="appel-status" id="appel-status">
+    <div class="appel-status-head">
+      <div class="appel-status-ic" id="as-ic">🔔</div>
+      <div>
+        <div class="appel-status-title" id="as-title">Appel envoyé</div>
+        <div class="appel-status-sub" id="as-sub">En attente d'une réponse…</div>
+      </div>
+    </div>
+    <div class="appel-progress">
+      <div class="appel-progress-bar" id="as-bar" style="width:30%;background:var(--wn)"></div>
+    </div>
+    <div class="appel-timer-txt" id="as-timer"></div>
+  </div>
+
+  <!-- Actions -->
+  <div class="client-chip" id="client-chip"></div>
+  <div class="sec-title">Que puis-je faire pour vous ?</div>
+  <div class="actions" id="actions">
+    <div class="action-btn primary" onclick="sendAppel('serveuse')">
+      <div class="action-ic">🔔</div>
+      <div class="action-lbl">Appeler une serveuse</div>
+      <div class="action-sub">Assistance immédiate</div>
+    </div>
+    <div class="action-btn warn" onclick="sendAppel('addition')">
+      <div class="action-ic">💳</div>
+      <div class="action-lbl">Demander l'addition</div>
+      <div class="action-sub">Paiement à table</div>
+    </div>
+    <div class="action-btn" onclick="openMenuClient()">
+      <div class="action-ic">🛒</div>
+      <div class="action-lbl">Passer une commande</div>
+      <div class="action-sub">Articles & boissons</div>
+    </div>
+    <div class="action-btn pay" id="pay-action" style="display:none" onclick="openPaiement()">
+      <div class="action-ic">📲</div>
+      <div class="action-lbl">💳 Payer ma commande</div>
+      <div class="action-sub">Par Mobile Money</div>
+    </div>
+    <div class="action-btn" onclick="openMessageSheet('message')">
+      <div class="action-ic">💬</div>
+      <div class="action-lbl">Envoyer un message</div>
+      <div class="action-sub">Demande spéciale</div>
+    </div>
+  </div>
+
+  <div class="footer">Propulsé par BarOS · Votre bar connecté</div>
+</div>
+
+<!-- Page d'erreur -->
+<div class="wrap" id="err-wrap" style="display:none">
+  <div class="hdr"><div class="brand">BarOS</div></div>
+  <div class="err-wrap">
+    <div class="err-ic" id="err-ic">❌</div>
+    <div class="err-title" id="err-title">Table introuvable</div>
+    <div class="err-sub" id="err-sub">Ce QR code ne correspond à aucune table active.</div>
+  </div>
+</div>
+
+<!-- Bottom sheet message -->
+<div class="overlay" id="msg-overlay" onclick="if(event.target===this)closeMsgSheet()">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title" id="sheet-title">Passer une commande</div>
+    <textarea class="finp" id="msg-input" rows="4" placeholder="Ex: 1 Heineken, 2 Fanta, 1 plateau fromages…"></textarea>
+    <div class="sheet-btns">
+      <button class="btn" onclick="closeMsgSheet()">Annuler</button>
+      <button class="btn btn-ac btn-full" id="sheet-send-btn" onclick="sendMsgAppel()">✓ Envoyer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Menu client : commande autonome -->
+<div class="overlay" id="menu-overlay" onclick="if(event.target===this)closeMenuClient()">
+  <div class="sheet sheet-menu">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title" style="display:flex;align-items:center">Notre menu<button class="lang-btn" onclick="toggleLang()" aria-label="Langue / Language">EN</button></div>
+    <div class="cm-cats" id="cm-cats"></div>
+    <div class="cm-list" id="cm-list"></div>
+    <div class="cm-foot">
+      <textarea class="finp cm-note" id="cm-note" rows="2" placeholder="Précision (ex : bien glacée, sans glaçon…)"></textarea>
+      <div class="cm-total"><span id="cm-count">0 article</span><b id="cm-total">0 F</b></div>
+      <div class="sheet-btns" style="margin-top:0">
+        <button class="btn" onclick="closeMenuClient()">Fermer</button>
+        <button class="btn btn-ac btn-full" id="cm-send-btn" onclick="sendCommandeClient()" disabled>✓ Envoyer la commande</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Identification + accueil animé -->
+<div class="acc-ov" id="acc-ov">
+  <div class="acc-glow"></div>
+  <div class="acc-conf" id="acc-conf"></div>
+  <div class="acc-card" id="acc-form" style="display:none">
+    <div class="acc-brand">BarOS</div>
+    <div class="acc-where" id="acc-where-f"></div>
+    <div class="acc-title">Bienvenue !</div>
+    <div class="acc-sub">Présentez-vous pour profiter de votre niveau de fidélité et être servi plus vite.</div>
+    <input class="finp" id="acc-nom" placeholder="Votre nom" autocomplete="name" maxlength="40">
+    <input class="finp" id="acc-tel" placeholder="Votre numéro de téléphone" inputmode="tel" autocomplete="tel" maxlength="20">
+    <div class="acc-err" id="acc-err"></div>
+    <button class="btn btn-ac btn-full" id="acc-btn" onclick="accSubmit()">Entrer</button>
+  </div>
+  <div class="acc-card" id="acc-welcome" style="display:none">
+    <div class="acc-hi">Bienvenue</div>
+    <div class="acc-name" id="acc-name"></div>
+    <div class="acc-loc" id="acc-loc"></div>
+    <div class="acc-badge" id="acc-badge"></div>
+    <div class="acc-perk" id="acc-perk"></div>
+    <div class="acc-bar"><i id="acc-bar-fill"></i></div>
+    <div class="acc-next" id="acc-next"></div>
+    <button class="btn btn-ac btn-full acc-go" onclick="accEnter()">Accéder à ma table</button>
+  </div>
+</div>
+
+<!-- Paiement mobile -->
+<div class="overlay" id="pay-overlay" onclick="if(event.target===this)closePaiement()">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">Payer ma commande</div>
+    <div class="pay-total" id="pay-total">0 F</div>
+    <div class="pay-ops" id="pay-ops"></div>
+    <div id="pay-step2" style="display:none">
+      <div class="pay-instr" id="pay-instr"></div>
+      <input class="finp" id="pay-tel" inputmode="tel" placeholder="Votre numéro de téléphone">
+      <input class="finp" id="pay-ref" placeholder="Référence de la transaction (reçue par SMS)">
+      <button class="btn btn-ac btn-full" id="pay-send" onclick="submitPaiement()">✓ J'ai payé</button>
+    </div>
+    <div class="sheet-btns" style="margin-top:10px"><button class="btn btn-full" onclick="closePaiement()">Payer plus tard</button></div>
+  </div>
+</div>
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="js/boot-check.js"></script>
+<script src="js/lib-supabase.js"></script>
+<script src="js/app-01.js"></script>
+<script src="js/commande.js"></script>
+<script src="js/accueil.js"></script>
+<script src="js/paiement.js"></script>
+<script src="js/offline-queue.js"></script>
+<script src="js/langue.js"></script>
+
+<!-- PWA — Service Worker Registration -->
+<script src="js/app-02.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+/* BarOS — Menu masqué par défaut + bouton pour l'ouvrir (même charte) */
+.menu-btn{margin-right:10px;flex-shrink:0;font-weight:600}
+.topbar{justify-content:flex-start}
+.topbar .tb-l{flex:1;min-width:0}
+.sb{position:fixed;top:0;left:0;bottom:0;width:250px;max-width:84vw;z-index:950;transform:translateX(-105%);transition:transform .22s ease;box-shadow:none}
+.sb.open{transform:translateX(0);box-shadow:8px 0 30px rgba(0,0,0,.55)}
+.sb-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:940;opacity:0;pointer-events:none;transition:opacity .2s}
+.sb-overlay.open{opacity:1;pointer-events:auto}
+.shell{display:block}
+.main{width:100%;min-height:100vh}
+body.menu-open{overflow:hidden}

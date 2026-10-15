@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="color-scheme" content="dark">
+  <meta name="application-name" content="BarOS Staff">
+  <meta name="theme-color" content="#7c6cff">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="BarOS Staff">
+  <link rel="manifest" href="manifest-serveuse.json">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMCIgZmlsbD0iIzBhMGEwZiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjQzMiIgaGVpZ2h0PSI0MzIiIHJ4PSI4MCIgZmlsbD0iIzEyMTIxYSIvPgogIDxjaXJjbGUgY3g9IjI1NiIgY3k9IjE4NSIgcj0iODUiIGZpbGw9IiM3YzZjZmYiLz4KICA8ZWxsaXBzZSBjeD0iMjU2IiBjeT0iNDIwIiByeD0iMTQ1IiByeT0iMTA1IiBmaWxsPSIjN2M2Y2ZmIi8+CiAgPHJlY3QgeD0iMTExIiB5PSIzODAiIHdpZHRoPSIyOTAiIGhlaWdodD0iOTAiIHJ4PSIwIiBmaWxsPSIjMTIxMjFhIi8+CiAgPHRleHQgeD0iMjU2IiB5PSI0OTAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjYwIiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjYzhmNTVhIj5TVEFGRjwvdGV4dD4KPC9zdmc+">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMCIgZmlsbD0iIzBhMGEwZiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjQzMiIgaGVpZ2h0PSI0MzIiIHJ4PSI4MCIgZmlsbD0iIzEyMTIxYSIvPgogIDxjaXJjbGUgY3g9IjI1NiIgY3k9IjE4NSIgcj0iODUiIGZpbGw9IiM3YzZjZmYiLz4KICA8ZWxsaXBzZSBjeD0iMjU2IiBjeT0iNDIwIiByeD0iMTQ1IiByeT0iMTA1IiBmaWxsPSIjN2M2Y2ZmIi8+CiAgPHJlY3QgeD0iMTExIiB5PSIzODAiIHdpZHRoPSIyOTAiIGhlaWdodD0iOTAiIHJ4PSIwIiBmaWxsPSIjMTIxMjFhIi8+CiAgPHRleHQgeD0iMjU2IiB5PSI0OTAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjYwIiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjYzhmNTVhIj5TVEFGRjwvdGV4dD4KPC9zdmc+">
+  <link rel="shortcut icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMCIgZmlsbD0iIzBhMGEwZiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjQzMiIgaGVpZ2h0PSI0MzIiIHJ4PSI4MCIgZmlsbD0iIzEyMTIxYSIvPgogIDxjaXJjbGUgY3g9IjI1NiIgY3k9IjE4NSIgcj0iODUiIGZpbGw9IiM3YzZjZmYiLz4KICA8ZWxsaXBzZSBjeD0iMjU2IiBjeT0iNDIwIiByeD0iMTQ1IiByeT0iMTA1IiBmaWxsPSIjN2M2Y2ZmIi8+CiAgPHJlY3QgeD0iMTExIiB5PSIzODAiIHdpZHRoPSIyOTAiIGhlaWdodD0iOTAiIHJ4PSIwIiBmaWxsPSIjMTIxMjFhIi8+CiAgPHRleHQgeD0iMjU2IiB5PSI0OTAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjYwIiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjYzhmNTVhIj5TVEFGRjwvdGV4dD4KPC9zdmc+">
+<title>BarOS Personnel</title>
+<script src="js/lib-supabase.js"></script>
+<script src="js/lib-jspdf.js"></script>
+<!-- BAROS QR FIX — Bibliothèque QR code pour génération badges employés -->
+<script src="js/lib-qrcode.js"></script>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/offline.css">
+</head>
+<body>
+<div class="splash" id="splash">
+  <div class="splash-logo">BarOS</div>
+  <div class="splash-tag">Interface Personnel · v3.0</div>
+  <div class="splash-bar"><div class="splash-fill"></div></div>
+  <div style="font-size:11px;color:rgba(240,239,245,0.3)">Réservé au personnel autorisé</div>
+  <div class="splash-copy">
+    <strong>© 2025 Christophe OLOCK BELANG</strong><br>
+    Tous droits réservés · Propriété intellectuelle protégée
+  </div>
+</div>
+
+<div class="pol-bg hide" id="pol-modal">
+  <div class="pol-box">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
+      <div>
+        <div class="pol-logo">BarOS Staff</div>
+        <div class="pol-ver">Version 3.0 · Personnel · © 2025 Christophe OLOCK BELANG</div>
+      </div>
+      <span style="cursor:pointer;font-size:16px;color:rgba(240,239,245,0.4)" onclick="document.getElementById('pol-modal').classList.add('hide')">✕</span>
+    </div>
+    <div style="background:rgba(124,108,255,.1);border:1px solid rgba(124,108,255,.25);border-radius:10px;padding:10px 12px;font-size:12px;color:#7c6cff;margin-bottom:16px">🔐 Propriété intellectuelle protégée — Accès réservé au personnel</div>
+
+    <div class="pol-h">👤 Propriétaire</div>
+    <div class="pol-p"><strong style="color:#f0eff5">Christophe OLOCK BELANG</strong> — Concepteur exclusif de BarOS.<br>
+    Ce logiciel est protégé par le droit d'auteur © 2025. Toute copie ou redistribution est interdite sans accord écrit.</div>
+
+    <div class="pol-h">🔒 Accès & Confidentialité</div>
+    <div class="pol-p">• Cet accès est strictement personnel et nominatif.<br>
+    • Ne partagez jamais votre code PIN avec d'autres personnes.<br>
+    • Toutes les actions effectuées sont enregistrées et horodatées.<br>
+    • Les données clients sont confidentielles et protégées.</div>
+
+    <div class="pol-h">⚖️ Droit applicable</div>
+    <div class="pol-p">Régi par les lois camerounaises et les conventions OAPI sur la propriété intellectuelle. Juridiction de Douala, Cameroun.</div>
+
+    <div style="text-align:center;padding:10px;background:rgba(255,255,255,0.04);border-radius:10px;margin-top:16px">
+      <div style="font-size:10px;color:rgba(240,239,245,0.2)">© 2025 Christophe OLOCK BELANG · BarOS v3.0 · Made in Cameroun 🇨🇲</div>
+    </div>
+    <button style="width:100%;margin-top:10px;padding:12px;background:#7c6cff;color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer" onclick="document.getElementById('pol-modal').classList.add('hide')">✓ Compris</button>
+  </div>
+</div>
+
+
+<!-- PIN LOGIN -->
+<div class="pin-screen" id="pin-screen">
+  <div class="pin-logo">BarOS</div>
+  <div class="pin-sub">Personnel</div>
+  <div class="pin-who" id="pin-who">Sélectionne ton profil</div>
+  <div class="profiles" id="profiles"></div>
+  <div id="pin-sec" class="hide" style="display:flex;flex-direction:column;align-items:center;gap:13px">
+    <div class="pin-dots" id="pin-dots"></div>
+    <div class="pin-pad" id="pin-pad"></div>
+    <div class="pin-back" onclick="resetPin()">← Changer de profil</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="app hide" id="app">
+  <div class="hdr">
+    <div class="hdr-av" id="hdr-av">?</div>
+    <div class="hdr-info">
+      <div class="hdr-name" id="hdr-name">—</div>
+      <div class="hdr-etab" id="hdr-etab">—</div>
+    </div>
+    <div class="hdr-right">
+      <div class="badge-ca" id="badge-ca">0 F</div>
+      <div class="badge-cmd hide" id="badge-pending" onclick="showTab('barman',null)">0 🍺</div>
+      <div class="logout" onclick="doLogout()">⏏</div>
+    </div>
+  </div>
+  <div class="nav" id="nav"></div>
+
+  <!-- COMMANDE -->
+  <div id="view-commande" class="hide" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+    <div class="steps" id="steps-bar"></div>
+    <div class="scroll" id="step-content" style="padding-bottom:130px"></div>
+    <div class="footer">
+      <div class="tot-row">
+        <span class="tot-lbl" id="tot-lbl">Sélectionne une table</span>
+        <span class="tot-val" id="tot-val"></span>
+      </div>
+      <div class="foot-btns">
+        <button class="fbt fbt-back hide" id="btn-back" onclick="prevStep()">← Retour</button>
+        <button class="fbt fbt-next" id="btn-next" onclick="nextStep()" disabled>Choisir les articles →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HISTORIQUE VENTES -->
+  <div id="view-historique" class="hide">
+    <div class="scroll">
+      <div class="stat-grid" id="hist-stats"></div>
+      <div class="sec-lbl">Mes ventes aujourd'hui</div>
+      <div id="hist-list"></div>
+    </div>
+  </div>
+
+  <!-- BADGES -->
+  <div id="view-badges" class="hide">
+    <div class="scroll">
+      <div class="sec-lbl">Tes badges</div>
+      <div class="badges-grid" id="badges-grid"></div>
+    </div>
+  </div>
+
+  <!-- BARMAN -->
+  <div id="view-barman" class="hide" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+    <!-- Sous-onglets -->
+    <div style="display:flex;border-bottom:1px solid var(--bd);flex-shrink:0">
+      <div id="btab-attente" onclick="showBarTab('attente')" style="flex:1;padding:10px 6px 8px;text-align:center;cursor:pointer;font-size:11px;color:var(--ac);border-bottom:2px solid var(--ac)">
+        <span style="font-size:16px;display:block;margin-bottom:2px">⏳</span>En attente <span id="bar-badge-att" style="background:var(--dg);color:#fff;border-radius:10px;padding:1px 6px;font-size:10px;font-weight:700;margin-left:3px"></span>
+      </div>
+      <div id="btab-hist" onclick="showBarTab('hist')" style="flex:1;padding:10px 6px 8px;text-align:center;cursor:pointer;font-size:11px;color:var(--mt);border-bottom:2px solid transparent">
+        <span style="font-size:16px;display:block;margin-bottom:2px">📋</span>Historique
+      </div>
+    </div>
+    <!-- En attente -->
+    <div id="barview-attente" class="scroll">
+      <div id="barman-list"></div>
+    </div>
+    <!-- Historique bar -->
+    <div id="barview-hist" class="scroll hide">
+      <div class="stat-grid" id="bar-hist-stats" style="margin-bottom:12px"></div>
+      <div class="sec-lbl">Commandes traitées aujourd'hui</div>
+      <div id="bar-hist-list"></div>
+      <!-- BAR INVENTORY — Section stock bar injectée dynamiquement -->
+      <div id="bar-stock-section"></div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- APPELS CLIENTS — BAROS CLIENT CALL SYSTEM -->
+  <div id="view-appels" class="hide" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+    <!-- Filtres rapides — TABLE CALL MANAGEMENT -->
+    <div class="appels-filter-bar" id="appels-filter-bar">
+      <button class="appels-filter-btn on" id="apf-all" onclick="setAppelFilter('all',this)">Tous</button>
+      <button class="appels-filter-btn" id="apf-pending" onclick="setAppelFilter('pending',this)">🔴 Attente</button>
+      <button class="appels-filter-btn" id="apf-accepted" onclick="setAppelFilter('accepted',this)">🟡 En cours</button>
+      <button class="appels-filter-btn" id="apf-addition" onclick="setAppelFilter('addition',this)">💰 Additions</button>
+      <button class="appels-filter-btn" id="apf-urgence" onclick="setAppelFilter('urgence',this)">🚨 Urgences</button>
+    </div>
+    <!-- Stats manager rapides -->
+    <div id="appels-mgr-strip" style="display:none;padding:8px 12px 0;flex-shrink:0"></div>
+    <!-- Liste appels -->
+    <div class="scroll" style="padding:12px 12px 100px">
+      <div id="appels-list">
+        <div class="appel-empty">⏳ Chargement…</div>
+      </div>
+
+      <!-- ── BAROS APPELS SORTANTS — Contacter le manager (additif) ── -->
+      <div id="appel-mgr-card" style="margin-top:18px;background:var(--s2);border-radius:14px;padding:14px;border:1px solid var(--br)">
+        <div style="font-size:12px;font-weight:700;color:var(--mt);letter-spacing:.05em;margin-bottom:10px">📟 CONTACTER LE MANAGER</div>
+
+        <!-- Sélecteur de table -->
+        <div style="margin-bottom:10px">
+          <select id="appel-mgr-table" style="width:100%;background:var(--s3);border:1px solid var(--br);border-radius:8px;padding:8px 10px;color:var(--tx);font-size:13px">
+            <option value="">— Sélectionner une table —</option>
+          </select>
+        </div>
+
+        <!-- Boutons type -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+          <!-- Fix #8 : masqué si l'utilisateur est lui-même serveuse -->
+          <button id="appel-mgr-btn-serveuse"
+            onclick="_appellerManager('serveuse')"
+            style="background:rgba(90,180,255,.15);color:#5ab4ff;border:1px solid rgba(90,180,255,.3);border-radius:10px;padding:9px 6px;font-size:12px;font-weight:600;cursor:pointer;display:none"
+            data-hide-for-role="serveuse">
+            🔔 Appel serveuse
+          </button>
+          <button id="appel-mgr-btn-urgence"
+            onclick="_appellerManager('urgence')"
+            style="background:rgba(255,94,94,.15);color:#ff5e5e;border:1px solid rgba(255,94,94,.3);border-radius:10px;padding:9px 6px;font-size:12px;font-weight:600;cursor:pointer">
+            🚨 Urgence
+          </button>
+          <button id="appel-mgr-btn-addition"
+            onclick="_appellerManager('addition')"
+            style="background:rgba(245,158,11,.15);color:#f59e0b;border:1px solid rgba(245,158,11,.3);border-radius:10px;padding:9px 6px;font-size:12px;font-weight:600;cursor:pointer">
+            💰 Addition
+          </button>
+          <button id="appel-mgr-btn-message"
+            onclick="_appellerManager('message')"
+            style="background:rgba(124,108,255,.15);color:#7c6cff;border:1px solid rgba(124,108,255,.3);border-radius:10px;padding:9px 6px;font-size:12px;font-weight:600;cursor:pointer">
+            💬 Message
+          </button>
+        </div>
+
+        <!-- Champ message optionnel -->
+        <textarea id="appel-mgr-msg" rows="2" placeholder="Message optionnel pour le manager…"
+          style="width:100%;box-sizing:border-box;background:var(--s3);border:1px solid var(--br);border-radius:8px;padding:8px 10px;color:var(--tx);font-size:13px;resize:none;font-family:inherit"></textarea>
+      </div>
+      <!-- ── FIN BAROS APPELS SORTANTS ── -->
+
+    </div>
+  </div>
+
+<!-- ═══════════════════════════════════════════════════════
+     VUES MULTI-RÔLES — Ajoutées progressivement v4.0
+     N'écrase aucune vue existante.
+═══════════════════════════════════════════════════════ -->
+
+<!-- ── CUISINE ──────────────────────────────────────────── -->
+<div id="view-cuisine" class="hide" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+  <div style="display:flex;border-bottom:1px solid var(--bd);flex-shrink:0">
+    <div id="ctab-att" onclick="showCuisTab('att')" style="flex:1;padding:10px 6px 8px;text-align:center;cursor:pointer;font-size:11px;color:var(--ac);border-bottom:2px solid var(--ac)">
+      <span style="font-size:16px;display:block;margin-bottom:2px">🔥</span>En cuisine <span id="cuis-badge-att" class="cuis-badge-dot"></span>
+    </div>
+    <div id="ctab-pret" onclick="showCuisTab('pret')" style="flex:1;padding:10px 6px 8px;text-align:center;cursor:pointer;font-size:11px;color:var(--mt);border-bottom:2px solid transparent">
+      <span style="font-size:16px;display:block;margin-bottom:2px">✅</span>Prêt &amp; servi
+    </div>
+    <div id="ctab-hist" onclick="showCuisTab('hist')" style="flex:1;padding:10px 6px 8px;text-align:center;cursor:pointer;font-size:11px;color:var(--mt);border-bottom:2px solid transparent">
+      <span style="font-size:16px;display:block;margin-bottom:2px">📋</span>Stats
+    </div>
+  </div>
+  <div id="cuisview-att" class="scroll"><div id="cuisine-list"></div></div>
+  <div id="cuisview-pret" class="scroll hide"><div id="cuisine-pret-list"></div></div>
+  <div id="cuisview-hist" class="scroll hide">
+    <div class="stat-grid" id="cuis-stats" style="margin-bottom:12px"></div>
+    <div class="sec-lbl">Historique du jour</div>
+    <div id="cuis-hist-list"></div>
+    <!-- CUISINE INVENTORY — Section stock cuisine injectée dynamiquement -->
+    <div id="cuis-stock-section"></div>
+  </div>
+</div>
+
+<!-- ── SÉCURITÉ VIGILE ──────────────────────────────────── -->
+<div id="view-securite" class="hide">
+  <div class="scroll" style="padding:12px 12px 90px">
+    <div class="vig-grid" id="vig-stats-grid"></div>
+    <div class="vig-export-row">
+      <button class="vig-export-btn" onclick="exportPDF_vigile('jour')">📄 Rapport Jour</button>
+      <button class="vig-export-btn" onclick="exportPDF_vigile('semaine')">📄 Semaine</button>
+      <button class="vig-export-btn" onclick="exportPDF_vigile('mois')">📄 Mois</button>
+    </div>
+    <div class="sec-lbl">Statut employés</div>
+    <div id="vig-emp-list"></div>
+  </div>
+</div>
+
+<!-- ── SCANS VIGILE ─────────────────────────────────────── -->
+<div id="view-scans" class="hide" style="display:flex;flex-direction:column;overflow:hidden">
+  <div class="vig-filter-bar">
+    <button class="mf-btn on" id="vig-f-all"     onclick="setVigFilter('all',this)">Tous</button>
+    <button class="mf-btn"    id="vig-f-entree"   onclick="setVigFilter('entree',this)">→ Entrées</button>
+    <button class="mf-btn"    id="vig-f-sortie"   onclick="setVigFilter('sortie',this)">← Sorties</button>
+    <button class="mf-btn"    id="vig-f-retard"   onclick="setVigFilter('retard',this)">⏰ Retards</button>
+    <button class="mf-btn"    id="vig-f-suspect"  onclick="setVigFilter('suspect',this)">⚠️ Suspects</button>
+  </div>
+  <div class="scroll" style="padding:0 0 80px"><div id="scans-list"></div></div>
+</div>
+
+<!-- ── ALERTES VIGILE ───────────────────────────────────── -->
+<div id="view-alertes-vig" class="hide">
+  <div class="scroll" style="padding:12px 12px 90px">
+    <div id="alertes-vig-list"></div>
+  </div>
+</div>
+
+<!-- ── ÉQUIPE (Chef + Directeur) ────────────────────────── -->
+<div id="view-equipe" class="hide">
+  <div class="scroll" style="padding:12px 12px 90px">
+    <div class="stat-grid" id="equipe-stats" style="margin-bottom:12px"></div>
+    <div class="sec-lbl">Équipe en service</div>
+    <div id="equipe-list"></div>
+  </div>
+</div>
+
+<!-- ── COMMANDES GLOBALES (Chef + Directeur) ────────────── -->
+<div id="view-cmd-all" class="hide">
+  <div class="scroll" style="padding:12px 12px 90px">
+    <div class="stat-grid" id="cmd-all-stats" style="margin-bottom:12px"></div>
+    <div class="sec-lbl">Toutes les commandes du jour</div>
+    <div id="cmd-all-list"></div>
+  </div>
+</div>
+
+<!-- ── DIRECTION DASHBOARD ──────────────────────────────── -->
+<div id="view-direction" class="hide">
+  <div class="scroll" style="padding:12px 12px 90px">
+    <div class="dir-kpi-grid" id="dir-kpi"></div>
+    <div class="sec-lbl" style="margin-bottom:10px">Performance équipe</div>
+    <div id="dir-team"></div>
+    <div class="sec-lbl" style="margin-top:14px;margin-bottom:10px">Alertes récentes</div>
+    <div id="dir-alertes"></div>
+  </div>
+</div>
+
+<!-- CONFIRMATION -->
+<div class="confirm-ov hide" id="confirm-ov">
+  <div class="conf-ic">✅</div>
+  <div class="conf-title">Commande envoyée !</div>
+  <div class="conf-sub" id="conf-sub"></div>
+  <div class="conf-detail" id="conf-detail"></div>
+  <button style="width:100%;max-width:280px;padding:11px;border-radius:var(--rs);background:rgba(200,245,90,.12);border:1px solid rgba(200,245,90,.3);color:var(--ac);font-size:13px;font-weight:600;cursor:pointer;margin-bottom:8px" onclick="showReceiptFromConf()">🧾 Imprimer la facture</button>
+  <button class="conf-new" onclick="newCmd()">+ Nouvelle commande</button>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="receipt-overlay hide" id="receipt-overlay" onclick="if(event.target===this)closeReceipt()">
+  <div class="receipt-box" id="print-receipt">
+    <div class="receipt-scroll">
+      <div id="receipt-content"></div>
+    </div>
+    <!-- Barre imprimante Bluetooth -->
+    <div class="printer-bar">
+      <div class="printer-status">
+        <div class="printer-dot off" id="pt-dot"></div>
+        <span class="printer-name" id="pt-name">Non connectée</span>
+      </div>
+      <select class="paper-sel" id="pt-paper" onchange="BTP.width=this.value==='58mm'?32:48">
+        <option value="58mm">58 mm</option>
+        <option value="80mm" selected>80 mm</option>
+      </select>
+      <button class="printer-connect-btn" id="pt-btn" onclick="btConnect()">🔗 Connecter</button>
+    </div>
+    <!-- Barre imprimante Cat Printer (WalkPrint / GB01 / GT01 / MiNi Printer) -->
+    <div class="printer-bar">
+      <div class="printer-status">
+        <div class="printer-dot off" id="catpt-dot"></div>
+        <span class="printer-name" id="catpt-name">Non connectée</span>
+      </div>
+      <span style="font-size:11px;opacity:.7;flex:1">🐱 Cat Printer (WalkPrint)</span>
+      <button class="printer-connect-btn" id="catpt-btn" onclick="catPrinterConnect()">🔗 Connecter</button>
+    </div>
+    <!-- Boutons d'action -->
+    <div class="receipt-btns">
+      <button class="receipt-btn receipt-print-bt disabled" id="bt-print-btn" onclick="doPrintBT()" title="Imprimer via Bluetooth">🖨️ Bluetooth</button>
+      <button class="receipt-btn receipt-print-bt disabled" id="catpt-print-btn" onclick="doPrintCatPrinter()" title="Imprimer via Cat Printer (WalkPrint)">🐱 Cat Printer</button>
+      <!-- DIAG TEMPORAIRE — à retirer une fois le bug "papier blanc" résolu -->
+      <button class="receipt-btn receipt-print-bt" id="bt-diag-btn" onclick="btDiagTest()" title="[DIAG] Test ESC/POS minimal, sans donnees de commande">🧪BT</button>
+      <button class="receipt-btn receipt-print-bt" onclick="catDiagTestA()" title="[DIAG] Sans init du tout">🧪A</button>
+      <button class="receipt-btn receipt-print-bt" onclick="catDiagTestB()" title="[DIAG] Sans lattice 0xA6">🧪B</button>
+      <button class="receipt-btn receipt-print-bt" onclick="catDiagTestC()" title="[DIAG] Lattice + délai 2s">🧪C</button>
+      <button class="receipt-btn receipt-print-browser" onclick="doPrint()" title="Imprimer via navigateur">🌐 Navigateur</button>
+      <button class="receipt-btn receipt-close" onclick="closeReceipt()">✕</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/app-04.js"></script>
+
+
+<div style="position:fixed;bottom:6px;left:0;right:0;text-align:center;z-index:10;pointer-events:none">
+  <div style="font-size:9px;color:rgba(240,239,245,0.13)">© 2025 Christophe OLOCK BELANG · <span style="pointer-events:auto;cursor:pointer;color:rgba(124,108,255,0.4)" onclick="document.getElementById('pol-modal').classList.remove('hide')">Politique & CGU</span></div>
+</div>
+
+
+<script src="js/app-05.js"></script>
+
+
+<script src="js/app-06.js"></script>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     MULTI-RÔLES v4.0 — Module indépendant
+     Ajouté progressivement. N'écrase aucune logique existante.
+     © 2025 Christophe OLOCK BELANG
+═══════════════════════════════════════════════════════════════ -->
+<script src="js/app-07.js"></script>
+
+<!-- ═══════════════════════════════════════════════════════
+     PWA — Service Worker Registration
+     Ajouté lors de la migration PWA. Ne modifie aucune logique.
+═══════════════════════════════════════════════════════ -->
+<script src="js/app-08.js"></script>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     BAROS COMMUNICATIONS INTERNES — Ajout strictement additif
+     Ne modifie aucun code existant. Ajoute uniquement.
+═══════════════════════════════════════════════════════════════ -->
+<script src="js/app-09.js"></script>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     BAROS APPELS SORTANTS — Personnel → Manager
+     Strictement additif. Permet à la serveuse/barman d'alerter
+     le manager via INSERT dans la table appels.
+═══════════════════════════════════════════════════════════════ -->
+<script src="js/app-10.js"></script>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     BAROS MESSAGES FEED — Onglet "Messages" pour le personnel
+     Strictement additif — aucune modification du code existant.
+     Affiche le flux des communications manager dans un onglet dédié.
+═══════════════════════════════════════════════════════════════ -->
+<div id="view-messages" class="hide" style="padding:12px 12px 80px">
+  <div style="font-size:15px;font-weight:700;color:var(--tx);margin-bottom:12px">📩 Messages du manager</div>
+  <div id="msg-feed" style="display:flex;flex-direction:column;gap:8px">
+    <div id="msg-empty" style="text-align:center;color:var(--mt);font-size:13px;padding:40px 0">Aucun message reçu</div>
+  </div>
+</div>
+
+<script src="js/app-11.js"></script>
+<script src="js/offline-queue.js"></script>
+</body>
+</html>

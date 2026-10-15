@@ -1,0 +1,26 @@
+/* BarOS Gestionnaire — photos du menu, établissements multiples, paiements mobiles */
+.stk-extra{border-top:1px dashed var(--bd);margin:6px 0 4px;padding-top:8px}
+.stk-photo-row{display:flex;align-items:center;gap:8px;margin:6px 0 8px}
+.stk-photo-prev{width:54px;height:54px;border-radius:10px;object-fit:cover;border:1px solid var(--bd)}
+.mt-list{max-height:52vh;overflow-y:auto;margin:8px 0}
+.mt-sum{display:flex;gap:8px;margin-bottom:8px}
+.mt-sum .mt-kpi{flex:1;background:var(--s2);border:1px solid var(--bd);border-radius:var(--rs);padding:8px 10px}
+.mt-kpi small{display:block;font-size:10px;color:var(--mt)}
+.mt-kpi b{font-family:'Syne',sans-serif;font-size:15px;color:var(--ac)}
+.mt-row{display:flex;align-items:center;gap:8px;padding:9px 10px;border:1px solid var(--bd);border-radius:var(--rs);margin-bottom:6px;background:var(--s1)}
+.mt-row.cur{border-color:var(--ac)}
+.mt-info{flex:1;min-width:0}
+.mt-nom{font-size:13px;font-weight:600}
+.mt-sub{font-size:11px;color:var(--mt);margin-top:1px}
+.mt-ca{font-size:12px;color:var(--ac);font-weight:600;white-space:nowrap}
+.mt-sep{font-size:10px;color:var(--ht);letter-spacing:.1em;text-transform:uppercase;margin:12px 0 6px}
+.pay-tabs{display:flex;gap:6px;margin-bottom:6px}
+.pay-tab{flex:1;padding:7px 4px;border-radius:var(--rs);border:1px solid var(--bd);background:var(--s2);color:var(--tx);font-size:12px;cursor:pointer;font-family:inherit}
+.pay-tab.on{background:var(--ac);color:#0a0a0f;border-color:var(--ac);font-weight:600}
+.pay-empty{text-align:center;color:var(--mt);font-size:12px;padding:26px 0}
+.pay-actions{display:flex;gap:6px;margin-top:6px}
+.pay-pill{font-size:10px;border-radius:20px;padding:2px 8px;font-weight:600}
+.pay-pill.ok{background:rgba(74,222,128,.15);color:var(--gn)}
+.pay-pill.ko{background:rgba(255,94,94,.15);color:var(--dg)}
+.pay-pill.wait{background:rgba(255,180,68,.15);color:var(--wn)}
+.pay-note{font-size:11px;color:var(--mt);margin-top:8px;line-height:1.5}

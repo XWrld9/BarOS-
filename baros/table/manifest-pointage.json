@@ -1,0 +1,17 @@
+{
+  "name": "BarOS Table",
+  "short_name": "BarOS Table",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#c8f55a",
+  "icons": [
+    {
+      "src": "icons/icon-pointage.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

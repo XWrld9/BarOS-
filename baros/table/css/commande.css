@@ -1,0 +1,27 @@
+/* BarOS — Commande autonome client (même charte que style.css) */
+.sheet.sheet-menu{max-height:88vh;display:flex;flex-direction:column}
+.cm-cats{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:6px;scrollbar-width:none}
+.cm-cats::-webkit-scrollbar{display:none}
+.cm-cat{flex:0 0 auto;padding:7px 12px;border-radius:20px;border:1px solid var(--bd);background:var(--s2);color:var(--tx);font-size:12px;cursor:pointer;font-family:inherit}
+.cm-cat.on{background:var(--ac);color:#0a0a0f;border-color:var(--ac);font-weight:600}
+.cm-list{overflow-y:auto;flex:1;min-height:120px;-webkit-overflow-scrolling:touch}
+.cm-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--bd)}
+.cm-ic{font-size:22px;width:32px;text-align:center}
+.cm-info{flex:1;min-width:0}
+.cm-nom{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cm-prix{font-size:11px;color:var(--ac);margin-top:2px}
+.cm-qty{display:flex;align-items:center;gap:8px}
+.cm-qty button{width:28px;height:28px;border-radius:50%;border:1px solid var(--bd);background:var(--s2);color:var(--tx);font-size:16px;line-height:1;cursor:pointer}
+.cm-qty button.plus{background:var(--ac);color:#0a0a0f;border-color:var(--ac)}
+.cm-qty span{min-width:16px;text-align:center;font-size:13px;font-weight:600}
+.cm-empty{text-align:center;color:var(--ht);font-size:12px;padding:30px 0}
+.cm-foot{margin-top:12px}
+.cm-total{display:flex;justify-content:space-between;font-size:13px;margin-bottom:10px}
+.cm-total b{color:var(--ac);font-family:Syne,sans-serif}
+.cm-note{margin-bottom:10px}
+
+/* photos, descriptions, allergènes */
+.cm-photo{width:46px;height:46px;border-radius:10px;object-fit:cover;flex-shrink:0;border:1px solid var(--bd)}
+.cm-desc{font-size:11px;color:var(--mt);margin-top:2px;line-height:1.35}
+.cm-all{font-size:10px;color:var(--wn);margin-top:2px}
+.cm-nom{white-space:normal}

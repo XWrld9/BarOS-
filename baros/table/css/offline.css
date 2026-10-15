@@ -1,0 +1,5 @@
+/* BarOS — bandeau hors ligne (même charte) */
+.bq-banner{position:fixed;left:0;right:0;top:0;z-index:99999;padding:8px 14px;text-align:center;font-size:12px;font-weight:600;transform:translateY(-110%);transition:transform .25s ease;pointer-events:none}
+.bq-banner.show{transform:translateY(0)}
+.bq-banner.off{background:#ffb444;color:#0a0a0f}
+.bq-banner.sync{background:#c8f55a;color:#0a0a0f}

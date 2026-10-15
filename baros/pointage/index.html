@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="BarOS Pointage">
+<meta name="theme-color" content="#0a0a0f">
+<meta http-equiv="Permissions-Policy" content="camera=*">
+<title>BarOS — Pointage</title>
+
+<!-- Supabase -->
+<script src="js/lib-supabase.js"></script>
+<!-- jsQR — décodage QR natif, fonctionne en file:// -->
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="manifest" href="manifest-pointage.json">
+<link rel="apple-touch-icon" href="icons/icon-pointage.svg">
+<link rel="icon" type="image/svg+xml" href="icons/icon-pointage.svg">
+</head>
+<body>
+
+<!-- ── BARRE HORS-LIGNE ── -->
+<div class="offline-bar" id="offline-bar">📡 Hors-ligne — les pointages seront synchronisés à la reconnexion</div>
+
+<!-- ── HEADER ── -->
+<div class="hdr">
+  <div>
+    <div class="hdr-logo">BarOS</div>
+    <div class="hdr-sub" id="hdr-etab">Chargement…</div>
+  </div>
+  <div class="hdr-right">
+    <div class="hdr-time" id="hdr-time">--:--</div>
+    <div class="hdr-date" id="hdr-date">--</div>
+  </div>
+</div>
+
+<!-- ── CORPS ── -->
+<div class="main">
+
+  <!-- Scanner QR (vidéo native) -->
+  <div class="scanner-wrap">
+    <div id="qr-reader"></div>
+    <canvas id="qr-canvas"></canvas>
+    <div class="scanner-overlay">
+      <div class="scanner-frame"><span></span></div>
+      <div class="scan-line"></div>
+    </div>
+    <!-- Indicateurs qualité -->
+    <div class="scan-quality-bar">
+      <div class="sq-indicator sq-light" id="sq-light">💡 –</div>
+      <div class="sq-indicator sq-focus" id="sq-focus">🎯 –</div>
+    </div>
+    <div class="scan-label">📷 Approchez votre badge QR</div>
+    <div class="engine-badge" id="engine-badge">BarOS HyperScan v9</div>
+    <button id="btn-torch" onclick="toggleTorch()" style="position:absolute;top:10px;right:10px;z-index:20;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.2);border-radius:50%;width:40px;height:40px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)" title="Torche">🔦</button>
+  </div>
+
+  <!-- Compteurs journaliers -->
+  <div class="counter-row">
+    <div class="counter-box">
+      <div class="cb-val" id="cnt-presents">0</div>
+      <div class="cb-lbl">Présents</div>
+    </div>
+    <div class="counter-box">
+      <div class="cb-val" id="cnt-sorties" style="color:var(--mt)">0</div>
+      <div class="cb-lbl">Sortis</div>
+    </div>
+    <div class="counter-box">
+      <div class="cb-val" id="cnt-retards" style="color:var(--wn)">0</div>
+      <div class="cb-lbl">Retards</div>
+    </div>
+  </div>
+
+  <!-- Boîte d'attente -->
+  <div class="wait-box">
+    <div class="w-icon">👋</div>
+    <div class="w-title">En attente d'un scan</div>
+    <div class="w-sub" id="last-scan-txt">Aucun pointage aujourd'hui</div>
+  </div>
+
+</div>
+
+<!-- ── CARTE RÉSULTAT PREMIUM (plein écran) ── -->
+<div class="result-card" id="result-card">
+  <div class="rc-inner">
+    <div class="rc-status" id="rc-status">—</div>
+    <div class="rc-photo"   id="rc-photo">👤</div>
+    <div class="rc-welcome" id="rc-welcome"></div>
+    <div class="rc-nom"     id="rc-nom">—</div>
+    <div class="rc-poste"   id="rc-poste">—</div>
+
+    <div class="rc-time-box">
+      <div class="rc-time-lbl" id="rc-time-lbl">Heure d'arrivée</div>
+      <div class="rc-time-val" id="rc-time-val">--:--</div>
+    </div>
+
+    <div class="rc-planning" id="rc-planning"></div>
+    <div class="rc-alert"    id="rc-alert" style="display:none"></div>
+
+    <button class="rc-btn-new" id="rc-btn-new" onclick="closeResult()">📷 Nouveau scan</button>
+
+    <div class="rc-close-bar"><div class="rc-close-fill" id="rc-close-fill"></div></div>
+    <div class="rc-close-hint" id="rc-close-hint">Fermeture automatique dans <span id="rc-countdown">60</span>s</div>
+  </div>
+</div>
+
+<!-- ── ÉCRAN SUSPENDU ── -->
+<div class="suspended-card" id="suspended-card">
+  <div class="susp-icon">🚫</div>
+  <div class="susp-title">Accès refusé</div>
+  <div class="susp-msg" id="susp-msg">Vous avez été suspendu de la boîte.<br>Contactez votre manager.</div>
+  <button class="susp-close" onclick="closeSuspended()">Fermer</button>
+</div>
+
+<!-- ── CARTE ERREUR ── -->
+<div class="err-card" id="err-card">
+  <div class="err-inner">
+    <div class="err-icon">⚠️</div>
+    <div class="err-title" id="err-title">Badge non reconnu</div>
+    <div class="err-msg"   id="err-msg">Ce QR code ne correspond à aucun employé.</div>
+    <button class="btn-ac" onclick="closeErr()">Fermer</button>
+  </div>
+</div>
+
+<!-- ── BADGE SYNC HORS-LIGNE ── -->
+<div class="sync-badge" id="sync-badge" onclick="syncOffline()">
+  ☁️ <span id="sync-count">0</span> en attente
+</div>
+
+<!-- ── SETUP (première configuration) ── -->
+<div class="setup-card" id="setup-card">
+  <div class="setup-inner">
+    <div class="setup-title">⚙️ Configuration initiale</div>
+    <div class="setup-sub">
+      Scannez le QR de configuration depuis <strong>BarOS Manager → Config → Tablette de pointage</strong> pour une configuration automatique en 3 secondes.
+    </div>
+
+    <!-- Option 1 : Scanner le QR de config -->
+    <div id="setup-scan-zone">
+      <div style="background:var(--s2);border:1px solid var(--bd2);border-radius:var(--rs);padding:12px;margin-bottom:12px;text-align:center">
+        <div id="setup-qr-reader" style="width:100%;max-width:240px;margin:0 auto 8px;border-radius:8px;overflow:hidden;background:#000;aspect-ratio:1"></div>
+        <div style="font-size:11px;color:var(--mt)">📷 Pointez la caméra vers le QR affiché dans BarOS Manager</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+        <div style="flex:1;height:1px;background:var(--bd)"></div>
+        <div style="font-size:10px;color:var(--mt)">ou saisir manuellement</div>
+        <div style="flex:1;height:1px;background:var(--bd)"></div>
+      </div>
+    </div>
+
+    <!-- Option 2 : Saisie manuelle -->
+    <div id="setup-manual-zone">
+      <div class="setup-lbl">URL Supabase</div>
+      <input class="setup-inp" id="cfg-url" placeholder="https://xxxx.supabase.co" autocomplete="off">
+
+      <div class="setup-lbl">Clé API (anon key)</div>
+      <input class="setup-inp" id="cfg-key" type="password" placeholder="sb_publishable_...">
+
+      <div class="setup-lbl">ID de l'établissement</div>
+      <input class="setup-inp" id="cfg-etab" placeholder="UUID — visible dans BarOS Manager → Config">
+
+      <button id="btn-setup-save" class="btn-ac" style="width:100%;padding:12px;font-size:14px;margin-bottom:8px" onclick="saveSetup()">
+        ✅ Enregistrer et démarrer
+      </button>
+      <div id="setup-error" style="display:none;background:rgba(255,94,94,.15);color:#ff5e5e;border:1px solid rgba(255,94,94,.3);border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600;margin-top:8px;text-align:center"></div>
+    </div>
+
+    <div class="setup-note">
+      💡 Le QR de configuration se trouve dans BarOS Manager → Config → <strong>Tablette de pointage</strong>.
+    </div>
+  </div>
+</div>
+
+<script src="js/app-01.js"></script>
+
+<!-- ═══════════════════════════════════════════════════════
+     PWA — Service Worker Registration
+═══════════════════════════════════════════════════════ -->
+<script src="js/app-02.js"></script>
+
+
+<!-- BarOS Offline-First + Session 30j — Patch non invasif (inline) -->
+<script src="js/app-03.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+:root{--bg:#0a0a0f;--s1:#12121a;--s2:#1a1a26;--bd:rgba(255,255,255,0.08);--ac:#c8f55a;--tx:#f0f0f5;--ht:#7a7a8c}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-family:'DM Sans',Arial,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center}
+.wrap{width:100%;max-width:420px;padding:24px;text-align:center}
+h1{font-family:'Syne','Arial Black',sans-serif;font-size:44px;font-weight:800}
+h1 span{color:var(--ac)}
+.sub{color:var(--ht);margin:6px 0 28px}
+.grid{display:flex;flex-direction:column;gap:12px}
+.card{display:block;background:var(--s1);border:1px solid var(--bd);border-radius:16px;padding:18px;color:var(--tx);text-decoration:none;text-align:left}
+.card b{display:block;color:var(--ac);font-size:17px;margin-bottom:4px}
+.card small{color:var(--ht)}
+.foot{color:var(--ht);font-size:11px;margin-top:24px}
